@@ -1,0 +1,137 @@
+﻿@using Codes
+@model ViewModel.CarViewModel
+@{
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+    Repositories.AllCar allcar = new Repositories.AllCar();
+    int total = 0;
+}
+
+
+
+
+
+<div class="sigh-up">
+    <ul style="width: 100%; float: none; text-align: center; margin-top:40px;">
+        <li style="width: 100%;">
+            @using (Html.BeginForm("Index", "Vehicle", FormMethod.Get, new { Style = "width:45%; float: left; text-align: center;"}))
+            {
+                @Html.Hidden("Car", "Car")
+                <input type="submit" class="btn btn-primary" value="Car">
+            }
+            @using (Html.BeginForm("Index", "Vehicle", FormMethod.Get, new { Style = "width:45%;  float: right; text-align: center;" }))
+            {
+                @Html.Hidden("Van", "Van")
+                <input type="submit" class="btn btn-primary" value="Van">
+            }
+
+        </li>
+    </ul>
+</div>
+<div class="list-box">
+
+ <section class="mainContent full-width clearfix">
+      <div class="container">
+        <div class="input-group searchArea">
+          <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+          <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Search something...">
+          <button type="submit" class="input-group-addon button" id="basic-addon21">Search</button>
+        </div>
+
+			</div>
+		</section>
+
+
+	
+    @if (Model != null)
+    {
+
+        foreach (var obj in Model.Cars)
+        {
+            total++;
+            string imageFile = HttpContext.Current.Server.MapPath("~/Content/" + "nologo.png");
+            if (!string.IsNullOrEmpty(obj.CarPhoto))
+            {
+                imageFile = HttpContext.Current.Server.MapPath(Codes.ConfigurationWrapper.GalleryPhoto + obj.CarPhoto);
+            }
+            else
+            {
+                obj.CarPhoto = "nologo.png";
+            }
+            Thumbnail thm = new Thumbnail(imageFile, 500,500);
+            string ext = Path.GetExtension(obj.CarPhoto);
+            var resizedimage = "data:image/ " + ext.Split('.')[1] + ";base64," + Convert.ToBase64String((byte[])thm.ImageBytes);
+
+       
+               
+
+        
+            
+              
+
+
+
+                <section class="colorSection full-width clearfix bg-color-4 servicesSection">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-sm-push-6 col-xs-12">
+
+
+					 <a href="@Url.Action("Detail", "Vehicle", new { Id = obj.CarId })">
+						 <img src="@resizedimage" alt="image" class="img-responsive img-rounded">
+                   </a>
+           
+
+          </div>
+          <div class="col-sm-6 col-sm-pull-6 col-xs-12">
+            <div class="schoolInfo">
+           
+
+   <h2>@obj.CarName</h2>
+
+
+						
+            
+			 <h2>@obj.ModelName</h2>
+           
+              <p class="color-3">@allcar.GetPlanNameByCarId(obj.CarId)</p>
+                
+
+              <a href="@Url.Action("Detail", "Vehicle", new { Id = obj.CarId })", class="btn btn-primary">Car Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <hr>
+
+
+
+
+ 
+
+
+
+
+
+	
+        }
+    }
+  
+
+
+    @if (total == 0)
+    {
+        <div class="Divrow">
+            <div class="text">
+                No Vehicles Found!
+            </div>
+        </div>
+    }
+    @Html.Partial("_Paging")
+</div>
+
+
+
+
+
+

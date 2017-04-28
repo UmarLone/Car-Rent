@@ -1,0 +1,122 @@
+﻿@using Codes
+@model IEnumerable<Models.StaticContent>
+@{
+    ViewBag.Title = "Finance Apps";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+}
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            Content Management
+            <small>
+                All Contents
+            </small>
+        </h3>
+        @Html.Partial("_ContentMenu")
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- BEGIN SAMPLE TABLE PORTLET-->
+<div class="portlet box blue">
+
+    @using (Html.BeginForm("Index", "StaticContent", FormMethod.Get))
+    {
+        <div class="alert alert-success">
+            @Html.TextBox("Search", ViewBag.Search as string, new { @class = "form-control serchtxt", onkeypress = "return validateAlphaNumericOnlyOnSearch(event,'searchData');" })
+            <input type="submit" id="searchData" class="btn green" value="Search" />
+        </div>
+    }
+
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-cogs"></i>All Contents</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+
+            <a href="javascript:;" class="reload"></a>
+
+        </div>
+    </div>
+
+    <div class="portlet-body">
+        @if (TempData["Message"] != null && TempData["Message"] != "")
+        {
+            <div class="alert alert-success">
+                <button class="close" data-dismiss="alert"></button>
+                @TempData["Message"]
+            </div>
+
+        }
+        <div class="table-responsive">
+            <table class="table table-bordered draggable sortable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>IsActive</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+
+                        int i = 0;
+                        foreach (var obj in Model)
+                        {
+                            i++;
+
+
+                            <tr>
+                                <td>@i</td>
+
+                                <td>
+                                    @{
+                            var descrp = string.Empty;
+                            if (obj.ContentType != null)
+                            {
+                                descrp = Enum.GetValues(typeof(ContentType))
+                            .Cast<ContentType>()
+                            .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription()).Where(x => x.Key == obj.ContentType).Select(x => x.Value.ToString()).First();
+                            }
+                                    }
+
+                                    @descrp
+
+                                </td>
+                                <td style="width:200px;">@Extensions.HtmlStrip(obj.Description).TruncateAt(100)</td>
+                                <td>@(obj.IsActive == true ? "Yes" : "No")</td>
+                                <td colspan="2">
+                                    <a href="@Url.Action("Detail", "StaticContent", new { Id = obj.StaticContentId })">Edit</a>|
+                                    <a href="@Url.Action("Delete", "StaticContent", new { Id = obj.StaticContentId })" onclick="return confirm('Are you sure want to remove this Content?')">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                        if (i == 0)
+                        {
+                            <tr>
+                                <td colspan="5">No Record Found</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        @Html.Partial("_Paging")
+    </div>
+</div>
+<!-- END SAMPLE TABLE PORTLET-->
+<script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.watermark.min.js")"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        HighlightMenu('licontent', 'licontentsub', 'licontentall');
+    });
+
+</script>

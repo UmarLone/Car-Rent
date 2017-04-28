@@ -1,0 +1,9 @@
+﻿@using Codes
+<div style="clear: both"></div>
+<div class="dv-paging">
+    @Html.Pager(int.Parse(Request.QueryString["page"] ?? "1"), ConfigurationWrapper.PageSize, ((int)ViewBag.TotalPages))
+</div>
+<br />
+<div style="clear: both"></div>
+
+

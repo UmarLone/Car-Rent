@@ -1,0 +1,233 @@
+﻿@using Codes
+@model ViewModel.BookingViewModel
+@{
+    ViewBag.Title = "Booking";
+     Layout = "~/Areas/admin/Views/Shared/_AdminMasterLayout.cshtml"; 
+}
+
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+         <h3 class="page-title">
+                Booking Management
+            <small> 
+               All Bookings
+            </small>
+        </h3>
+         @Html.Partial("_BookingMenu")
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN VALIDATION STATES-->
+        <div class="panel panel-primary">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-reorder"></i>Booking Details</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+
+                    <a href="javascript:;" class="reload"></a>
+
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                @using (Html.BeginForm("Detail", "Booking", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    if (!string.IsNullOrWhiteSpace(ViewBag.Success) && Model.BookingId == 0)
+                    {
+                    <script type="text/javascript">
+                        $(function () {
+                            $("form :text").val("");
+                            $("form :password").val("");
+                            $("form :textarea").val("");
+                        })
+                    </script>        
+                    }
+
+                    if (!string.IsNullOrEmpty(ViewBag.Sucess))
+                    {
+                    <div class="alert alert-success">
+                        <button class="close" data-dismiss="alert"></button>
+                        @Html.Raw(ViewBag.Sucess)
+                    </div>
+
+                    }
+                    else
+                    {
+                        if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Count() > 0))
+                        {
+                    <div class="alert alert-error">
+                        <button class="close" data-dismiss="alert"></button>
+                        @Html.ValidationSummary(false)
+                    </div>
+                        }
+                    } 
+                    <div class="form-body">
+                        @Html.HiddenFor(m => m.BookingId)
+                        <div class="form-group">
+                            <label class="control-label col-md-3"> Name :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @maxlength = "200" , onkeypress="return validateAlphaNumericOnly(event);" })
+
+                            </div>
+                        </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-3"> Sur Name :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.SurName, new { @class = "form-control", @maxlength = "200" , onkeypress="return validateAlphaNumericOnly(event);" })
+
+                            </div>
+                        </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-3"> Email :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @maxlength = "200" })
+
+                            </div>
+                        </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-3"> House Number :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.HouseNumber, new { @class = "form-control", @maxlength = "20" , onkeypress="return validateNumbersOnly(event);"})
+
+                            </div>
+                        </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-3"> Home Number :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.HomePhone, new { @class = "form-control", @maxlength = "20" , onkeypress="return validateNumbersOnly(event);"})
+
+                            </div>
+                        </div>
+                       
+                           <div class="form-group">
+                            <label class="control-label col-md-3"> Street :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.Street, new { @class = "form-control", @maxlength = "200" })
+
+                            </div>
+                        </div>
+                           <div class="form-group">
+                            <label class="control-label col-md-3"> Town :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.Town, new { @class = "form-control", @maxlength = "200" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3"> Postal Code :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control", @maxlength = "8" })
+
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-md-3"> Start Date :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control calender", @maxlength = "200" })
+
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-md-3"> Start Time :</label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(c => c.StartTime, new SelectList((Enum.GetValues(typeof(TimeSlots))
+               .Cast<TimeSlots>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "---Select Time---", new { @class = "form-control" })
+
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-md-3"> Start Depot :</label>
+                            <div class="col-md-4">
+                               @Html.DropDownListFor(c => c.StartDeopt, new SelectList((Enum.GetValues(typeof(Depot))
+               .Cast<Depot>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "Select Depot", new { @class = "form-control" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3"> Return Date :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.ReturnDate, new { @class = "form-control calender", @maxlength = "200" })
+
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-md-3"> Return Time :</label>
+                            <div class="col-md-4">
+                            @Html.DropDownListFor(c => c.ReturnTime, new SelectList((Enum.GetValues(typeof(TimeSlots))
+               .Cast<TimeSlots>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "---Select Time---", new { @class = "form-control" })
+
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-md-3"> Return Depot :</label>
+                            <div class="col-md-4">
+                               @Html.DropDownListFor(c => c.ReturnDeopt, new SelectList((Enum.GetValues(typeof(Depot))
+               .Cast<Depot>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "Select Depot", new { @class = "form-control" })
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Vehicle Type :</label>
+                            <div class="col-md-4">
+                                 @Html.DropDownListFor(c => c.Type, new SelectList((Enum.GetValues(typeof(CarType))
+               .Cast<CarType>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "Select Vehicle Type", new { @class = "form-control", onchange = "GetVehicles(this.value)" })
+
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Vehicle :</label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.CarId, new SelectList(ViewBag.Cars, "Value", "Text"), "Select Vehicle Type", new { @class = "form-control", onchange = "GetRentalPlan(this.value)" })
+                            </div>
+                        </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-3">Rental Plan :</label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(m => m.RentalPlanId, new SelectList(ViewBag.RentalPlans, "Value", "Text"), "Select Vehicle Type", new { @class = "form-control"})
+                            </div>
+                        </div>
+                          
+                          <div class="form-group">
+                            <label class="control-label col-md-3">Active</label>
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(m => m.IsActive)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions fluid">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button type="submit" class="btn green">
+                                 Save
+                            </button>
+
+                        </div>
+                    </div>
+                }
+
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END VALIDATION STATES-->
+    </div>
+</div>
+ <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.watermark.min.js")"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        HighlightMenu('libook', 'libooksub', 'libookadd');
+    });
+
+</script>

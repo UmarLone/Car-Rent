@@ -1,0 +1,8 @@
+﻿@model ViewModel.StaticContentViewModel
+@{
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<div class="text-box">
+     @Html.Raw(Model != null ? Model.Description : "")
+</div>
+

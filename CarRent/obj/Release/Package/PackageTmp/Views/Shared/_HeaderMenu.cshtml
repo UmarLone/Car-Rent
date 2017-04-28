@@ -1,0 +1,18 @@
+﻿<div class="menu-box">
+    <ul>
+        <li><a href="@Url.Action("Index","Home")"><span>Home</span></a></li>
+        <li><a href="@Url.Action("Index","Vehicle")"><span>Select Vehicle</span></a></li>
+        
+        <li><a href="@Url.Action("EuropeanVanHire","Home")"><span>european van hire</span></a></li>
+        <li><a href="http://www.jollygoodcampervanhire.co.uk/" onclick="return confirm_alert(this);"><span>campervan hire</span></a></li>
+        <li><a href="@Url.Action("MonthlyRental","Home")"><span>Monthly Rental</span></a></li>
+        <li><a href="@Url.Action("About","Home")"><span>About Us</span></a></li>
+        <li><a href="@Url.Action("Contact","Home")"><span>Contact Us</span></a></li>
+       
+    </ul>
+</div>
+<script type="text/javascript">
+    function confirm_alert(node) {
+        return confirm("You are being Redirected to our Campervan mobile site\n Please click on OK to continue.");
+    }
+</script>

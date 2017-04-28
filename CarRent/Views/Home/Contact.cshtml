@@ -1,0 +1,206 @@
+﻿@using Codes
+@model ViewModel.ContactsViewModel
+@{
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+
+
+
+
+
+        @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+        {
+            if (!string.IsNullOrWhiteSpace(ViewBag.Success) && Model.ContactsId == 0)
+            {
+            <script type="text/javascript">
+                $(function () {
+                    $("form :text").val("");
+                    $("form :password").val("");
+                    $("form :textarea").val("");
+                })
+            </script>        
+            }
+
+            if (!string.IsNullOrEmpty(ViewBag.Sucess))
+            {
+            <div class="alert alert-success">
+                @Html.Raw(ViewBag.Sucess)
+            </div>
+
+            }
+            else
+            {
+                if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Count() > 0))
+                {
+            <div class="alert alert-error">
+                @Html.ValidationSummary(false)
+            </div>
+                }
+            } 
+             <section class="mainContent full-width clearfix courseSingleSection">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 block">
+            <div class="thumbnail thumbnailContent alt">
+              <h3 class="color-1">Content will go here.</h3>
+         
+									<div class="text-box">
+     @Html.Raw(Model != null ? Model.StaticContent.Description : "")
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ <!-- MAIN SECTION -->
+    <section class="mainContent full-width clearfix conactSection">
+      <div class="container">
+       <div class="row">
+          <div class="col-sm-4 col-xs-12">
+            <div class="media addressContent">
+              <span class="media-left bg-color-1" href="#">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+              </span>
+              <div class="media-body">
+                <h3 class="media-heading">Address:</h3>
+                <p>9/4 C  Block,London</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <div class="media addressContent">
+              <span class="media-left bg-color-2" href="#">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+              </span>
+              <div class="media-body">
+                <h3 class="media-heading">Phone:</h3>
+                <p>954 124 2542</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <div class="media addressContent">
+              <span class="media-left bg-color-3" href="#">
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+              </span>
+              <div class="media-body">
+                <h3 class="media-heading">Email:</h3>
+                <p><a href="mailto:hello@example.com">hello@example.com</a>
+                 
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="mapArea areaPadding">
+              <div id="map"></div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+		
+
+
+		<div class="row">
+          <div class="col-xs-12">
+            <div class="homeContactContent">
+
+					
+
+
+
+
+					
+					
+                <div class="row">
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <i class="fa fa-user"></i>
+                    
+				  @Html.TextBoxFor(m => m.Name, new { @class = "form-control border-color-1" ,  placeholder="Name ", id="exampleInputEmail1", @maxlength = "200" , onkeypress="return validateAlphaNumericOnly(event);" })
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <i class="fa fa-envelope" aria-hidden="true"></i>
+                    
+			@Html.TextBoxFor(m => m.EmailId, new { @class="form-control border-color-2", id="exampleInputEmail2", placeholder="Email address", @maxlength = "200" })
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <i class="fa fa-phone" aria-hidden="true"></i>
+                    
+				 @Html.TextBoxFor(m => m.Phone, new { @class="form-control border-color-5", id="exampleInputEmail3",placeholder="Phone", @maxlength = "20" , onkeypress="return validateNumbersOnly(event);"})
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <i class="fa fa-book" aria-hidden="true"></i>
+                   
+									  @Html.TextBoxFor(m => m.Subject, new { @class="form-control border-color-6", id="exampleInputEmail4", placeholder="Subject" , onkeypress="return validateAlphaNumericOnly(event);" })
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <i class="fa fa-comments" aria-hidden="true"></i>
+                  
+									 @Html.TextAreaFor(m => m.Suggestion, new { @class="form-control border-color-4", placeholder="Write message", @maxlength = "500", Style="height:100px;" })
+                    </div>
+                  </div>
+
+                   
+
+							
+                  <div class="col-xs-12">
+                    <div class="formBtnArea">
+                      <button type="submit" class="btn btn-primary"  onclick="return CheckSubmit();">Send Message</button>
+                    </div>
+                  </div>
+					
+                </div>
+     
+            </div>
+          </div>
+        </div> 
+      </div>
+    </section>
+    	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+            
+        
+        }
+   

@@ -1,0 +1,119 @@
+﻿@using Codes
+@model ViewModel.StaticContentViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+}
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            Content Management
+            <small>
+                All Contents
+            </small>
+        </h3>
+        @Html.Partial("_ContentMenu")
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN VALIDATION STATES-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-reorder"></i>Content Details</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+
+                    <a href="javascript:;" class="reload"></a>
+
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                @using (Html.BeginForm("Detail", "StaticContent", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                {
+                    @Html.HiddenFor(c => c.StaticContentId)
+                    if (!string.IsNullOrWhiteSpace(ViewBag.Success) && Model.StaticContentId == 0)
+                    {
+                        <script type="text/javascript">
+                            $(function () {
+                                $("form :text").val("");
+                                $("form :password").val("");
+                                $("form :textarea").val("");
+                            })
+                        </script>
+                    }
+
+                    if (!string.IsNullOrEmpty(ViewBag.Sucess))
+                    {
+                        <div class="alert alert-success">
+                            <button class="close" data-dismiss="alert"></button>
+                            @Html.Raw(ViewBag.Sucess)
+                        </div>
+
+                    }
+                    else
+                    {
+                        if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Count() > 0))
+                        {
+                            <div class="alert alert-error">
+                                <button class="close" data-dismiss="alert"></button>
+                                @Html.ValidationSummary(false)
+                            </div>
+                        }
+                    }
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Type :</label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(c => c.ContentType, new SelectList((Enum.GetValues(typeof(ContentType))
+                                .Cast<ContentType>()
+                               .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "Select Type", new { @class = "form-control" })
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Description :</label>
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(m => m.Description, new { @class = "form-control mceEditor" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Active</label>
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(m => m.IsActive)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions fluid">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button type="submit" class="btn green">
+                                Save
+                            </button>
+
+                        </div>
+                    </div>
+                }
+
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END VALIDATION STATES-->
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.watermark.min.js")"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        HighlightMenu('licontent', 'licontentsub', 'licontentadd');
+    });
+
+</script>

@@ -1,0 +1,124 @@
+﻿@using Codes
+@model IEnumerable<Models.Banner>
+@{
+    ViewBag.Title = "Finance Apps";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    
+}
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+            <h3 class="page-title">
+                Banner Management
+            <small> 
+               All Banners
+            </small>
+        </h3>
+      @Html.Partial("_BannerMenu")
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- BEGIN SAMPLE TABLE PORTLET-->
+<div class="portlet box blue">
+
+    @using (Html.BeginForm("Index", "Banner", FormMethod.Get))
+    {
+        <div class="alert alert-success">
+            @Html.TextBox("Search", ViewBag.Search as string, new { @class = "form-control serchtxt", onkeypress = "return validateAlphaNumericOnlyOnSearch(event,'searchData');" })
+            <input type="submit" id="searchData" class="btn green" value="Search" />
+        </div>             
+    }
+
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-cogs"></i>All Banners</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+
+            <a href="javascript:;" class="reload"></a>
+
+        </div>
+    </div>
+
+    <div class="portlet-body">
+        @if (TempData["Message"] != null && TempData["Message"] != "")
+        {
+            <div class="alert alert-success">
+                <button class="close" data-dismiss="alert"></button>
+                @TempData["Message"]
+            </div>
+
+        }
+        <div class="table-responsive">
+            <table class="table table-bordered draggable sortable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Banner</th>
+                        <th>Banner Title</th>
+                        <th>Banner Text</th>
+                        <th>IsActive</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                                  
+                        int i = 0;
+                        foreach (var obj in Model)
+                        {
+                            i++;
+
+                            string imageFile = HttpContext.Current.Server.MapPath("~/Content/" + "nologo.png");
+                            if (!string.IsNullOrEmpty(obj.BannerPic))
+                            {
+                                imageFile = HttpContext.Current.Server.MapPath(Codes.ConfigurationWrapper.GalleryPhoto + obj.BannerPic);
+                            }
+                            else
+                            {
+                                obj.BannerPic = "nologo.png";
+                            }
+                            Thumbnail thm = new Thumbnail(imageFile, 100, 80);
+                            string ext = Path.GetExtension(obj.BannerPic);
+                            var resizedimage = "data:image/ " + ext.Split('.')[1] + ";base64," + Convert.ToBase64String((byte[])thm.ImageBytes);
+                         
+                        <tr>
+                            <td>@i</td>
+                             <td>
+                                <img src="@resizedimage" alt="Vehicle Photo" title="@obj.BannerTitle"/></td>
+                            <td>@obj.BannerTitle</td>
+                            <td style="width:200px;">@Extensions.HtmlStrip(obj.BannerText).TruncateAt(100)</td>
+                             <td>@(obj.IsActive == true ? "Yes" : "No")</td>
+                            <td colspan="2">
+                                <a href="@Url.Action("Detail", "Banner", new { Id = obj.BannerId })">Edit</a>|
+                                      <a href="@Url.Action("Delete", "Banner", new { Id = obj.BannerId })" onclick="return confirm('Are you sure want to remove this Banner?')">
+                                         Delete
+                                      </a>
+                            </td>
+                        </tr>
+                        }
+                        if (i == 0)
+                        {
+                        <tr>
+                            <td colspan="6">No Record Found</td>
+                        </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        @Html.Partial("_Paging")
+    </div>
+</div>
+<!-- END SAMPLE TABLE PORTLET-->
+ <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.watermark.min.js")"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        HighlightMenu('libanner', 'libannersub', 'libannerall');
+    });
+
+</script>
+

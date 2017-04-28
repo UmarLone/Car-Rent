@@ -1,0 +1,60 @@
+﻿@model ViewModel.AdminUserViewmodel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutLogin.cshtml";
+
+}
+
+<!-- BEGIN LOGIN -->
+
+<!-- BEGIN LOGIN FORM -->
+@using (Html.BeginForm("Index", "Admin", FormMethod.Post, new { @class = "login-form" }))
+{        
+   
+    <h3 class="form-title">Login to your account</h3>
+    if (ViewBag.Check != "0" && ViewBag.Check != null)
+    {
+         <div id="divalrt" class="alert alert-error">
+        <button class="close" data-dismiss="alert"></button>
+        <span>@Html.ValidationSummary(false)</span>
+        </div>
+    }
+
+    <div class="form-group">
+        <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+        <label class="control-label visible-ie8 visible-ie9">Username</label>
+        <div class="input-icon">
+            <i class="icon-user"></i>
+
+            @Html.TextBoxFor(model => model.UserName, new { @placeholder = "Username", @class = "form-control placeholder-no-fix" })
+        </div>
+    </div>   
+    <div class="form-group">
+        <label class="control-label visible-ie8 visible-ie9">Password</label>
+        <div class="input-icon">
+            <i class="icon-lock"></i>
+            @Html.PasswordFor(model => model.Password, new { @PlaceHolder = "Password", @class = "form-control placeholder-no-fix" })
+        </div>
+    </div>
+       
+    
+    <div class="form-actions">
+        <label class="checkbox">
+            <input type="checkbox" name="remember" value="1" />
+            Remember me
+        </label>
+        <button type="submit" class="btn green pull-right">
+            Login <i class="m-icon-swapright m-icon-white"></i>
+        </button>
+    </div>
+           
+   
+}
+<div class="form-actions">
+        <label class="checkbox">
+           <a href="@Url.Action("ForgotPassword","Admin")">Forgot Password</a>
+        </label>
+    </div>
+             
+<!-- END LOGIN -->
+

@@ -1,0 +1,31 @@
+﻿@using Codes
+@model ViewModel.CarViewModel
+@{
+   Layout = "~/Views/Shared/withoutbanner.cshtml";
+    string imageFile = HttpContext.Current.Server.MapPath("~/Content/" + "nologo.png");
+    if (!string.IsNullOrEmpty(Model.CarPhoto))
+    {
+        imageFile = HttpContext.Current.Server.MapPath(Codes.ConfigurationWrapper.GalleryPhoto + Model.CarPhoto);
+    }
+    else
+    {
+        Model.CarPhoto = "nologo.png";
+    }
+    Thumbnail thm = new Thumbnail(imageFile, 151, 104);
+    string ext = Path.GetExtension(Model.CarPhoto);
+    var resizedimage = "data:image/ " + ext.Split('.')[1] + ";base64," + Convert.ToBase64String((byte[])thm.ImageBytes);
+}
+<div class="detail-box">
+    <div class="image">
+        <img src="@resizedimage">
+    </div>
+    <div class="text">
+        <h2>@Model.CarName</h2>
+        <h2>@Model.PlanName</h2>
+        <h3>Summary:</h3>
+        @Html.Raw(Model.Summary)
+        <h3>Why hire?</h3>
+        @Html.Raw(Model.WhyHire)
+        <a href="@Url.Action("Booking", "Vehicle", new { Id = Model.CarId})">BOOK NOW</a>
+    </div>
+</div>

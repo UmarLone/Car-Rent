@@ -1,0 +1,568 @@
+﻿@using Codes
+
+<!DOCTYPE html>
+ <html lang="en" class="no-js"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+	<meta charset="utf-8" />
+	<title>
+     Jolly Good Van Hire | Admin
+	</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<meta name="MobileOptimized" content="320">
+ 
+    
+	<!-- BEGIN GLOBAL MANDATORY STYLES -->        
+	!-- END GLOBAL MANDATORY STYLES -->
+	<!-- BEGIN THEME STYLES --> 
+
+	<link href="@Url.Content("~/content/admin/css/style.css")" rel="stylesheet" type="text/css"/>
+	<link href="@Url.Content("~/content/admin/css/style-responsive.css")" rel="stylesheet" type="text/css"/>
+	<link href="@Url.Content("~/content/admin/css/plugins.css")" rel="stylesheet" type="text/css"/>
+	<link href="@Url.Content("~/content/admin/css/themes/default.css")" rel="stylesheet" type="text/css" id="style_color"/>
+	<link href="@Url.Content("~/content/admin/css/custom.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/content/Admin/css/jquery.ui.datepicker.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/content/Admin/css/jquery-ui.css")" rel="stylesheet" />
+<link href="@Url.Content("~/content/Admin/css/jquery.ui.all.css")" rel="stylesheet" />
+
+
+
+		
+	<!-- END THEME STYLES -->
+	<link rel="shortcut icon" href="favicon.ico" />
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed">
+	<!-- BEGIN HEADER -->   
+	<div class="headermain navbar navbar-inverse navbar-fixed-top" style="height: 80px;">
+      <!-- BEGIN TOP NAVIGATION BAR -->
+      <div class="header-inner">
+         <!-- BEGIN LOGO -->  
+         <a class="navbar-brand" href="@Url.Action("Index","Dashboard")">
+         <img src="@Url.Content("~/Content/Front/images/logo2.png")" alt="Logo" style="height:60px;" class="img-responsive" />
+         </a>
+         <!-- END LOGO -->
+         <!-- BEGIN RESPONSIVE MENU TOGGLER --> 
+         <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+         <img src="@Url.Content("~/Content/admin/img/menu-toggler.png")" alt="" />
+         </a> 
+         <!-- END RESPONSIVE MENU TOGGLER -->
+         <!-- BEGIN TOP NAVIGATION MENU -->
+         <ul class="nav navbar-nav pull-right">
+
+            <li class="dropdown user">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+               <img alt="" src="@Url.Content("~/Content/admin/img/avatar1_small.jpg")"/>
+               <span class="username">
+                   @{var Name ="";
+                   if (Codes.SessionWrapper.Admin != null)
+                   {
+                       Name = Codes.SessionWrapper.Admin.UserName;
+                   }
+                   }
+                   @Name
+                   
+               </span>
+               <i class="icon-angle-down"></i>
+               </a>
+               <ul class="dropdown-menu">
+                  <li><a href="@Url.Action("Profile","Admin")"><i class="icon-user"></i>Admin Profile</a>
+                  </li>
+                 <li><a href="@Url.Action("ChangePassword","Admin")"><i class="icon-key"></i>
+                     Change Password
+                     </a>
+                  <li><a href="@Url.Action("Logout","Admin")"><i class="icon-key"></i>
+                  Logout
+                  </a>
+                  </li>
+               </ul>
+            </li>
+            <!-- END USER LOGIN DROPDOWN -->
+         </ul>
+         <!-- END TOP NAVIGATION MENU -->
+      </div>
+      <!-- END TOP NAVIGATION BAR -->
+   </div>
+	<!-- END HEADER -->
+	<div class="clearfix"></div>
+	<!-- BEGIN CONTAINER -->   
+	 <div class="page-container" style="margin-top:80px;">
+      
+      <div class="page-sidebar navbar-collapse collapse">
+         <!-- BEGIN SIDEBAR MENU -->        
+         <ul class="page-sidebar-menu">
+            
+            <li class="start active" id="lidashboard">
+               <a href="@Url.Action("Index","Dashboard")">
+               <i class="icon-home"></i> 
+               <span class="title"> Control Panel</span>
+               <span class="selected"></span>
+               </a>
+            </li>
+         <li class="" id="libanner" >
+               <a href="javascript:;" onclick="ResetMenu('libanner','libannersub')">
+                <i class="icon-th"></i> 
+               <span class="title"> Banner Management</span>
+               <span class="arrow "></span>
+               </a>
+               <ul class="sub-menu" id="libannersub">
+                     <li id="libannerall">
+                      <a href="@Url.Action("Index","Banner")">
+                      All Banners</a>
+                  </li>
+                    <li id="libanneradd" >
+                     <a href="@Url.Action("Detail","Banner")">
+                      Add New Banner</a>
+                  </li>
+                
+               </ul>
+            </li>
+           <li class="" id="lirent" >
+               <a href="javascript:;" onclick="ResetMenu('lirent','lirentsubmenu')">
+                <i class="icon-th"></i> 
+               <span class="title"> Plan Management</span>
+               <span class="arrow "></span>
+               </a>
+               <ul class="sub-menu" id="lirentsubmenu">
+                     <li id="lirentall">
+                      <a href="@Url.Action("Index","RentalPlan")">
+                      All Rental Plan</a>
+                  </li>
+                    <li id="lirentadd" >
+                     <a href="@Url.Action("Detail","RentalPlan")">
+                      Add Rental Plan</a>
+                  </li>
+                
+               </ul>
+            </li>
+           
+            <li class="" id="libusiness">
+               <a href="javascript:;"  onclick="ResetMenu('libusiness','libusinesssub')">
+               <i class="icon-th"></i> 
+               <span class="title"> Vehicle Management</span>
+               <span class="arrow "></span>
+               </a>
+               <ul class="sub-menu" id="libusinesssub">
+                    <li id="licarall" >
+                    <a href="@Url.Action("Index","Car")">
+                      All Vehicles</a>
+                  </li>
+                  <li id="licaradd">
+                      <a href="@Url.Action("Detail","Car")">
+                       Add New Vehicle</a>
+                  </li>
+                 
+               </ul>
+            </li>
+            
+                <li class="" id="libook">
+               <a href="javascript:;"  onclick="ResetMenu('libook','libooksub')">
+               <i class="icon-th"></i> 
+               <span class="title"> Booking Management</span>
+               <span class="arrow "></span>
+               </a>
+               <ul class="sub-menu" id="libooksub">
+                    <li id="libookall" >
+                    <a href="@Url.Action("Index","Booking")">
+                      All Bookings</a>
+                  </li>
+                  <li id="libookadd">
+                      <a href="@Url.Action("Detail","Booking")">
+                       Add New Booking</a>
+                  </li>
+                 
+               </ul>
+            </li>
+              <li class="" id="licontent">
+               <a href="javascript:;"  onclick="ResetMenu('licontent','licontentsub')">
+               <i class="icon-th"></i> 
+               <span class="title"> Content Management</span>
+               <span class="arrow "></span>
+               </a>
+               <ul class="sub-menu" id="licontentsub">
+                    <li id="licontentall" >
+                    <a href="@Url.Action("Index","StaticContent")">
+                      All Contents</a>
+                  </li>
+                  <li id="licontentadd">
+                      <a href="@Url.Action("Detail","StaticContent")">
+                       Add New Content</a>
+                  </li>
+                 
+               </ul>
+            </li>
+             <li class="" id="liuser">
+               <a href="javascript:;"  onclick="ResetMenu('liuser','liuserub')">
+               <i class="icon-th"></i> 
+               <span class="title"> Sub.Users Management</span>
+               <span class="arrow "></span>
+               </a>
+               <ul class="sub-menu" id="liusersub">
+                    <li id="liuserall" >
+                    <a href="@Url.Action("Index","User")">
+                      All Subscriptions</a>
+                  </li>
+                  <li id="liuseradd">
+                      <a href="@Url.Action("Detail","User")">
+                       Add New Subscription</a>
+                  </li>
+                 
+               </ul>
+              <li class="" id="licontact">
+               <a href="javascript:;"  onclick="ResetMenu('licontact','licontactsub')">
+               <i class="icon-th"></i> 
+               <span class="title"> Enquiry Management</span>
+               <span class="arrow "></span>
+               </a>
+               <ul class="sub-menu" id="licontactsub">
+                    <li id="licontactall" >
+                    <a href="@Url.Action("Index","ContactUs")">
+                      All enquiries</a>
+                  </li>
+                  <li id="licontactadd">
+                      <a href="@Url.Action("Detail","ContactUs")">
+                       Add New enquiry</a>
+                  </li>
+                 
+               </ul>
+            </li>
+         </ul>
+         <!-- END SIDEBAR MENU -->
+      </div> 
+      <!-- BEGIN SIDEBAR -->
+      
+		<!-- END EMPTY PAGE SIDEBAR -->
+		<!-- BEGIN PAGE -->
+		<div class="page-content">
+			
+            <div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN PAGE HEADER-->
+					<div class="row">
+						@RenderBody()
+					</div>
+					<!-- END PAGE HEADER-->
+					<!-- BEGIN PAGE CONTENT-->
+					
+					
+				</div>
+			</div>
+		</div>
+		<!-- END PAGE -->    
+	</div>
+	<!-- END CONTAINER -->
+	<!-- BEGIN FOOTER -->
+	<div class="footer">
+		<div class="footer-inner">
+			@System.DateTime.Now.Year &copy; JollyGood Van Hire | Glyndwr University.
+		</div>
+		<div class="footer-tools">
+			<span class="go-top">
+			<i class="icon-angle-up"></i>
+			</span>
+		</div>
+	</div>
+	<!-- END FOOTER -->
+	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+	<!-- BEGIN CORE PLUGINS -->   
+	<!--[if lt IE 9]>
+	<script src="/content/admin//plugins/excanvas.min.js"></script>
+	<script src="/content/admin//plugins/respond.min.js"></script>  
+	<![endif]--> 
+
+   
+	<script src="@Url.Content("~/content/admin/plugins/jquery-1.10.2.min.js")" type="text/javascript"></script>
+	<script src="@Url.Content("~/content/admin/plugins/jquery-migrate-1.2.1.min.js")" type="text/javascript"></script>     
+	<script src="@Url.Content("~/content/admin/plugins/bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
+	<script src="@Url.Content("~/content/admin/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js")" type="text/javascript" ></script>
+	<script src="@Url.Content("~/content/admin/plugins/jquery-slimscroll/jquery.slimscroll.min.js")" type="text/javascript"></script>
+	<script src="@Url.Content("~/content/admin/plugins/jquery.blockui.min.js")" type="text/javascript"></script>  
+	<script src="@Url.Content("~/content/admin/plugins/jquery.cookie.min.js")" type="text/javascript"></script>
+	<script src="@Url.Content("~/content/admin/plugins/uniform/jquery.uniform.min.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.9.2.custom.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/dragtable.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.tablesorter.min.js")"></script>
+	<!--     <script type="text/javascript" src="@Url.Content("~/Content/js/tiny_mce/tiny_mce.js")"></script>-->
+		
+	<!-- END CORE PLUGINS -->
+	<script src="@Url.Content("~/content/admin/scripts/app.js")"></script>    
+    ckeditor.js
+    <script src="@Url.Content("~/content/admin/plugins/ckeditor/ckeditor.js")"></script>    
+     <script src="@Url.Content("~/content/admin/plugins/ckeditor/jquery.js")"></script>    
+
+     <script src="@Url.Content("~/Content/js/highcharts.js")"></script>
+     <script src="@Url.Content("~/Content/js/exporting.js")"></script>
+      
+	<script>
+	    
+	    jQuery(document).ready(function () {
+	        App.init();
+	    });
+
+	    $(function () {
+	        $('.sortable').tablesorter();
+	    });
+
+	    $(function () {
+	        $(".calender").datepicker({
+	            dateFormat: 'mm/dd/yy',
+	            changeMonth: true,
+	            changeYear: true,
+            minDate: 0,
+            maxDate: '+30y',
+            inline: true
+        });
+	    })
+
+	    
+	    /*************************************************
+      The below script for editor
+      **************************************************/
+	    tinyMCE.init({
+	        // General options
+	     //   mode: "textareas",
+	      //  theme: "advanced",
+	      //  editor_selector: "mceEditor",
+	     //   relative_urls: false,
+	      //  plugins: "pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist",
+
+	        // Theme options
+	        theme_advanced_buttons1: "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+	        theme_advanced_buttons2: "|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+	        theme_advanced_buttons3: "emotions,|,print,|,ltr,rtl,|,fullscreen",
+	        theme_advanced_toolbar_location: "top",
+	        theme_advanced_toolbar_align: "left",
+	        theme_advanced_statusbar_location: "bottom",
+	        theme_advanced_resizing: true,
+	        // Example content CSS (should be your site CSS)
+	        content_css: "css/content.css",
+
+	        // Drop lists for link/image/media/template dialogs
+	        template_external_list_url: "lists/template_list.js",
+	        external_link_list_url: "lists/link_list.js",
+	        external_image_list_url: "lists/image_list.js",
+	        media_external_list_url: "lists/media_list.js",
+
+	        // Style formats
+	        style_formats: [
+            { title: 'Bold text', inline: 'b' },
+            { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+            { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+            { title: 'Example 1', inline: 'span', classes: 'example1' },
+            { title: 'Example 2', inline: 'span', classes: 'example2' },
+            { title: 'Table styles' },
+            { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+	        ],
+
+	        // Replace values for the template plugin
+	        template_replace_values: {
+	            username: "Some User",
+	            staffid: "991234"
+	        },
+	    });
+
+
+	    /*************************************************
+      The below script to validate alpha number
+      **************************************************/
+	    function validateAlphaNumericOnly(e) {
+
+	        var unicode = e.charCode ? e.charCode : e.keyCode;
+	        if ((unicode == 8) || (unicode == 9) || (unicode == 32) || (unicode == 127) || (unicode > 96 && unicode < 123) || (unicode > 64 && unicode < 91) || (unicode > 47 && unicode < 58) || unicode == 37 || unicode == 39) {
+	            if (unicode == 13)
+	                $(".button").click();
+	            return true;
+	        }
+	        else {
+	            return false;
+	        }
+
+	    }
+
+	    /*************************************************
+     The below script to validate alpha number for search
+     **************************************************/
+	    function validateAlphaNumericOnlyOnSearch(e, btnId) {
+
+
+	        var unicode = e.charCode ? e.charCode : e.keyCode;
+	        if ((unicode == 8) || (unicode == 13) || (unicode == 46) || (unicode == 64) || (unicode == 95) || (unicode == 45) || (unicode == 9) || (unicode == 32) || (unicode == 127) || (unicode > 96 && unicode < 123) || (unicode > 64 && unicode < 91) || (unicode > 47 && unicode < 58) || unicode == 37 || unicode == 39) {
+	            if (unicode == 13)
+	                $("#" + btnId).click();
+	            return true;
+	        }
+	        else {
+	            return false;
+	        }
+
+	    }
+
+	    /*************************************************
+     The below script to validate alpha only
+     **************************************************/
+	    function validateAlphaOnly(e) {
+
+	        var unicode = e.charCode ? e.charCode : e.keyCode;
+	        if ((unicode == 8) || (unicode == 9) || (unicode == 32) || (unicode == 127) || (unicode > 96 && unicode < 123) || (unicode > 64 && unicode < 91) || unicode == 37 || unicode == 39) {
+	            return true;
+	        }
+	        else {
+	            return false;
+	        }
+
+	    }
+
+	    /*************************************************
+       The below script to validate decimal number
+       **************************************************/
+	    function validateDecimalOnly(e) {
+
+	        var unicode = e.charCode ? e.charCode : e.keyCode;
+	        if ((unicode == 8) || (unicode == 9) || (unicode > 47 && unicode < 58) || (unicode == 46) || unicode == 37 || unicode == 39) {
+	            return true;
+	        }
+	        else {
+	            return false;
+	        }
+
+	    }
+	    /*************************************************
+        The below script to validate decimal number for percentage
+        **************************************************/
+	    function validateDecimalPercentOnly(value) {
+	        var _txtVal = 0;
+	        if (value == null || value == '') {
+	            _txtVal = 0;
+	        }
+	        else {
+	            _txtVal = value;
+	        }
+
+	        if (parseFloat(_txtVal) < 100) {
+	            return true;
+	        }
+	        else {
+	            alert('Percentage must be between 0 to 100');
+	            return false;
+	        }
+	    }
+	    /*************************************************
+        The below script to validate numeric
+        **************************************************/
+	    function validateNumbersOnly(e) {
+
+	        var unicode = e.charCode ? e.charCode : e.keyCode;
+	        if ((unicode == 8) || (unicode == 9) || (unicode > 47 && unicode < 58) || unicode == 37 || unicode == 39) {
+	            return true;
+	        }
+	        else {
+	            return false;
+	        }
+
+	    }
+
+	    /*************************************************
+      The below script to validate contact number format
+      **************************************************/
+	    function validateContactFAXOnly(e) {
+
+	        var unicode = e.charCode ? e.charCode : e.keyCode;
+	        if ((unicode == 8) || (unicode == 9) || (unicode > 47 && unicode < 58) || unicode == 45 || unicode == 37 || unicode == 39) {
+	            return true;
+	        }
+	        else {
+	            return false;
+	        }
+
+	    }
+	    function ResetMenu(liid, submenu) {
+
+
+	        $("#lidashboard").removeClass("active");
+	        $("#lirent").removeClass("active");
+	        $("#libusiness").removeClass("active");
+	        $("#libook").removeClass("active");
+	        $("#licontent").removeClass("active");
+	        $("#licontact").removeClass("active");
+	        $("#libanner").removeClass("active");
+	        $("#liuser").removeClass("active");
+	        jQuery("#" + liid).addClass("open active");
+
+	       // jQuery("#" + submenu).css("display", "block");
+	    }
+
+	    function HighlightOneMenu(liid) {
+
+	        $("#lidashboard").removeClass("active");
+	        $("#lirent").removeClass("active");
+	        $("#libusiness").removeClass("active");
+	        $("#libook").removeClass("active");
+	        $("#licontent").removeClass("active");
+	        $("#licontact").removeClass("active");
+	        $("#libanner").removeClass("active");
+	        $("#liuser").removeClass("active");
+	        $("#" + liid).addClass("open active");
+	    }
+
+	    function HighlightMenu(liid, submenu, subinnermenu) {
+
+	        $("#lidashboard").removeClass("active");
+	        $("#lirent").removeClass("active");
+	        $("#libusiness").removeClass("active");
+	        $("#libook").removeClass("active");
+	        $("#licontent").removeClass("active");
+	        $("#licontact").removeClass("active");
+	        $("#libanner").removeClass("active");
+	        $("#liuser").removeClass("active");
+	        $("#" + liid).addClass("open active");
+	        $("#" + submenu).css("display", "block");
+	        $("#" + subinnermenu).css("background-color", "#575757");
+	    }
+
+
+	    function GetStateList(CountryId) {
+	        $.post('@Url.Action("GetStateList", "Tax")', { CountryId: CountryId }, function (data) {
+                var r = '<OPTION VALUE="">Select</OPTION>';
+                for (var i = 0; i < data.length; i++)
+                    r += '<OPTION VALUE="' + data[i].Value + '">' + data[i].Text + '</OPTION>';
+                $("SELECT[name=StateId]").html(r);
+            }, "json");
+        }
+
+	    /*************************************************
+        The below script to fill patient dropdown for doctor
+        **************************************************/
+	    function GetVehicles(Type) {
+	        $.post('@Url.Action("GetVehicles", "Booking")', { Type: Type }, function (data) {
+                var r = '<OPTION VALUE="">Select</OPTION>';
+                for (var i = 0; i < data.length; i++) {
+                    r += '<OPTION VALUE="' + data[i].Value + '">' + data[i].Text + '</OPTION>';
+                }
+                $("#CarId").html(r);
+            }, "json");
+        }
+	    /*************************************************
+               The below script to fill patient dropdown for doctor
+               **************************************************/
+	    function GetRentalPlan(CarId) {
+	        $.post('@Url.Action("GetRentalPlan", "Booking")', { CarId: CarId }, function (data) {
+	            var r = '<OPTION VALUE="">Select</OPTION>';
+	            for (var i = 0; i < data.length; i++) {
+	                r += '<OPTION VALUE="' + data[i].Value + '">' + data[i].Text + '</OPTION>';
+	            }
+	            $("#RentalPlanId").html(r);
+	        }, "json");
+	    }
+
+
+	    
+	</script> 
+
+	<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

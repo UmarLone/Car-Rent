@@ -1,0 +1,60 @@
+﻿@using Codes
+@model ViewModel.CarViewModel
+@{
+   Layout = "~/Views/Shared/_MasterLayout.cshtml";
+    string imageFile = HttpContext.Current.Server.MapPath("~/Content/" + "nologo.png");
+    if (!string.IsNullOrEmpty(Model.CarPhoto))
+    {
+        imageFile = HttpContext.Current.Server.MapPath(Codes.ConfigurationWrapper.GalleryPhoto + Model.CarPhoto);
+    }
+    else
+    {
+        Model.CarPhoto = "nologo.png";
+    }
+    Thumbnail thm = new Thumbnail(imageFile, 450, 450);
+    string ext = Path.GetExtension(Model.CarPhoto);
+    var resizedimage = "data:image/ " + ext.Split('.')[1] + ";base64," + Convert.ToBase64String((byte[])thm.ImageBytes);
+}
+
+ <section class="whiteSection full-width clearfix p-t-n" style=" margin-top : 10px;">
+      <div class="container">
+        <div class="sectionTitle text-center">
+         <h2>
+            <span class="shape shape-left bg-color-4"></span>
+            <span>@Model.CarName</span>
+            <span class="shape shape-right bg-color-4"></span>
+          </h2>
+        </div>
+         
+        <div class="row">
+          
+         
+         
+          <div class="col-lg-6 col-xs-12" style=" width:100%; margin-top : 10px; ">
+            <div class="pricingTable tableVertical">
+              <div class="priceUper">
+                <div class="priceTitle bg-color-4"><h3> @Model.ModelName </h3></div>
+                <div class="priceInfo bg-color-4">
+               <p> Summary: </p>
+							
+                  <p>@Html.Raw(Model.Summary)</p>
+
+                  <p>Why Hire?</p>
+							<p>@Html.Raw(Model.WhyHire)</p>
+                  <div class="priceBtn alt">
+								   <a  class="btn btn-primary bg-color-2" href="@Url.Action("Booking", "Vehicle", new { Id = Model.CarId})">BOOK NOW</a>
+                   
+                    <h4 class="color-1">@Model.PlanName</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="priceLower">
+                
+    				 <img  style="padding:10px; marge-left:30px;" src="@resizedimage">
+              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

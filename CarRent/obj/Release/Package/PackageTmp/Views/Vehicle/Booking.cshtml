@@ -1,0 +1,301 @@
+﻿@using Codes
+@model ViewModel.BookingViewModel
+@{
+    Layout = "~/Views/Shared/withoutbanner.cshtml";
+}
+<div class="form-box">
+    <fieldset>
+        @using (Html.BeginForm("Booking", "Vehicle", FormMethod.Post))
+        {
+            if (!string.IsNullOrWhiteSpace(ViewBag.Success) && Model.BookingId == 0)
+            {
+            <script type="text/javascript">
+                $(function () {
+                    $("form :text").val("");
+                    $("form :password").val("");
+                    $("form :textarea").val("");
+                })
+            </script>        
+            }
+
+            if (!string.IsNullOrEmpty(ViewBag.Sucess))
+            {
+            <div class="alert alert-success">
+                @Html.Raw(ViewBag.Sucess)
+            </div>
+
+            }
+            else
+            {
+                if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Count() > 0))
+                {
+            <div class="alert alert-error">
+                @Html.ValidationSummary(false)
+            </div>
+                }
+            } 
+            <p>
+                <span>
+                    <label>Name:</label>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "field", @maxlength = "200", onkeypress = "return validateAlphaNumericOnly(event);" })
+                </span>
+            </p>
+            <p>
+                <span>
+                    <label>Surname:</label>
+                    @Html.TextBoxFor(m => m.SurName, new { @class = "field", @maxlength = "200", onkeypress = "return validateAlphaNumericOnly(event);" })
+
+                </span>
+            </p>
+
+            <p>
+                <span>
+                    <label>Email address: </label>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "field", @maxlength = "200" })
+
+                </span>
+            </p>
+
+            <p>
+                <span>
+                    <label>Home Phone: </label>
+                    @Html.TextBoxFor(m => m.HomePhone, new { @class = "field", @maxlength = "20", onkeypress = "return validateNumbersOnly(event);" })
+
+                </span>
+            </p>
+
+            <p>
+                <span>
+                    <label>Mobile: </label>
+                    @Html.TextBoxFor(m => m.Mobile, new { @class = "field", @maxlength = "20", onkeypress = "return validateNumbersOnly(event);" })
+                </span>
+            </p>
+
+            <p>
+                <span>
+                    <label>House no.:	</label>
+                    @Html.TextBoxFor(m => m.HouseNumber, new { @class = "field", @maxlength = "20", onkeypress = "return validateNumbersOnly(event);" })
+
+                </span>
+            </p>
+
+            <p>
+                <span>
+                    <label>Street:</label>
+                    @Html.TextBoxFor(m => m.Street, new { @class = "field", @maxlength = "200" })
+
+                </span>
+            </p>
+
+            <p>
+                <span>
+                    <label>Town: </label>
+                    @Html.TextBoxFor(m => m.Town, new { @class = "field", @maxlength = "200" })
+
+                </span>
+            </p>
+            <p>
+                <span>
+                    <label>Postcode: </label>
+                    @Html.TextBoxFor(m => m.PostCode, new { @class = "field", @maxlength = "8" })
+
+                </span>
+            </p>
+             
+            <p>
+                <span>
+                    <label>Start Time: </label>
+                    @Html.DropDownListFor(c => c.StartTime, new SelectList((Enum.GetValues(typeof(TimeSlots))
+               .Cast<TimeSlots>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "---Select Time---", new { @class = "field" })
+
+                </span>
+            </p>
+            <p>
+                <span>
+                    <label>Start Depot: </label>
+                    @Html.DropDownListFor(c => c.StartDeopt, new SelectList((Enum.GetValues(typeof(Depot))
+               .Cast<Depot>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "---Select Depot---", new { @class = "field" })
+
+                </span>
+            </p>
+           
+            <p>
+                <span>
+                    <label>Return Time: </label>
+                    @Html.DropDownListFor(c => c.ReturnTime, new SelectList((Enum.GetValues(typeof(TimeSlots))
+               .Cast<TimeSlots>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "---Select Time---", new { @class = "field" })
+
+                </span>
+            </p>
+            <p>
+                <span>
+                    <label>Return Depot: </label>
+                    @Html.DropDownListFor(c => c.ReturnDeopt, new SelectList((Enum.GetValues(typeof(Depot))
+               .Cast<Depot>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "---Select Depot---", new { @class = "field" })
+
+                </span>
+            </p>
+            <p>
+                <span>
+                    <label>Vehicle Type: </label>
+                    @Html.DropDownListFor(c => c.Type, new SelectList((Enum.GetValues(typeof(CarType))
+               .Cast<CarType>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "---Select Vehicle Type---", new { @class = "field", onchange = "GetVehicles(this.value)" })
+
+                </span>
+            </p>
+            <p>
+                <span>
+                    <label>Vehicle: </label>
+                    @Html.DropDownListFor(m => m.CarId, new SelectList(ViewBag.Cars, "Value", "Text"), "---Select Vehicle---", new { @class = "field", onchange = "GetRentalPlan(this.value)" })
+
+                </span>
+            </p>
+            <p>
+                <span>
+                    <label>Rental Plan: </label>
+                    @Html.DropDownListFor(m => m.RentalPlanId, new SelectList(ViewBag.RentalPlans, "Value", "Text"), "---Select Rental Plan---", new { @class = "field", onclick="CalculateReturnDate()"  })
+
+                </span>
+            </p>
+            <p>
+                <span>
+                    <label>Start Date: </label>
+                    @Html.TextBoxFor(m => m.StartDate, new { @class = "field calender", @maxlength = "200", Value = ""})
+
+                </span>
+            </p>
+            <p>
+                <span>
+                    <label>Return Date: </label>
+                    @Html.TextBoxFor(m => m.ReturnDate, new { @class = "field calender", @maxlength = "200", Value = ""})
+
+                </span>
+            </p>
+            <p>
+                <span>
+                    <label>2 + 3 =  </label>
+                    <input type="text" class="field" id="txttotal" />
+                </span>
+            </p>
+            <p>
+                <span>
+                    <label>
+                        <input type="checkbox" id="chkterm" />
+                    </label>
+                    I have read the <a href="@Url.Action("TermPolicy", "Home")" target="_blank">» Terms and Conditions «</a>
+                </span>
+            </p>
+            <p>
+                <input type="submit" class="submit" onclick="return CheckSubmit();" value="Submit Booking Details">
+            </p>
+        }
+    </fieldset>
+</div>
+<script>
+    function CheckSubmit() {
+        var total = $("#txttotal").val();
+        if (total == '' || total == null) {
+            alert('Please enter total.');
+            $("#txttotal").focus();
+            return false;
+        }
+        else if (parseInt(total) != 5) {
+            alert('Please enter correct total.');
+            $("#txttotal").focus();
+            return false;
+        }
+        else if (!$("#chkterm").is(":checked")) {
+            alert('Please accept the term and policy before submit.');
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    $(function () {
+
+        $('#ReturnDate').datepicker({
+            dateFormat: "mm/dd/yy",
+            onSelect: function (date) {
+
+                var RentalPlanId = $("#RentalPlanId").val();
+                var daysValue = 0;
+
+                var Criteria = JSON.stringify({ RentalPlanId: RentalPlanId });
+                $.ajaxSetup({ cache: false });
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetDays","Vehicle")',
+                    data: Criteria,
+                    async: false,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    error: function (error) {
+                        // alert('Error:' + error.responseText);
+                    },
+                    success: function (data) {
+                        daysValue = data;
+                    }
+                });
+                if (daysValue > 0) {
+                    var date2 = $('#StartDate').datepicker('getDate');
+                    date2.setDate(date2.getDate() + daysValue);
+                    $('#ReturnDate').datepicker('setDate', date2);
+                }
+             },
+
+        });
+
+        $("#StartDate").datepicker({
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            minDate: 0,
+            maxDate: '+30y',
+            onSelect: function (date) {
+
+                var RentalPlanId = $("#RentalPlanId").val();
+                var daysValue = 0;
+
+                var Criteria = JSON.stringify({ RentalPlanId: RentalPlanId });
+                $.ajaxSetup({ cache: false });
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetDays","Vehicle")',
+                    data: Criteria,
+                    async: false,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    error: function (error) {
+                        // alert('Error:' + error.responseText);
+                    },
+                    success: function (data) {
+                        daysValue = data;
+                    }
+                });
+
+                if (daysValue > 0) {
+                    var date2 = $('#StartDate').datepicker('getDate');
+                    date2.setDate(date2.getDate() + daysValue);
+                    $('#ReturnDate').datepicker('setDate', date2);
+                }
+            },
+            inline: true
+        });
+    })
+
+
+    function CalculateReturnDate() {
+
+       $("#StartDate").val('');
+        $("#ReturnDate").val('');
+       
+    }
+</script>
+

@@ -1,0 +1,8 @@
+﻿@using Codes
+<div class="pagination pagination-centered">
+    <ul>
+        @Html.HomePager(int.Parse(Request.QueryString["page"] ?? "1"), ConfigurationWrapper.PageSize, ((int)ViewBag.TotalPages))
+    </ul>
+</div>
+
+

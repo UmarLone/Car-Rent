@@ -1,0 +1,93 @@
+﻿@model ViewModel.AdminUserViewmodel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutLogin.cshtml";
+
+}
+
+
+
+ 	<div class="main">
+		<h1>Admin Control Panel Login</h1> 
+		<div class="main-info">
+			<div class="sap_tabs">
+				<div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
+					<ul class="resp-tabs-list">
+						<li class="resp-tab-item" aria-controls="tab_item-0"><h2><span>Login</span></h2></li>
+						<li class="resp-tab-item" aria-controls="tab_item-1"><span>Hide</span></li> 
+					</ul>	
+					<div class="clear"> </div>	
+					<div class="resp-tabs-container">
+
+
+
+						@using (Html.BeginForm("Index", "Admin", FormMethod.Post, new { @class = "login-form" }))
+{        
+   
+    
+    if (ViewBag.Check != "0" && ViewBag.Check != null)
+    {
+         
+      
+    <h5 style="color:red;" >  @Html.ValidationSummary(false)   </h5>
+ 
+    }
+
+						<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
+							<div class="agileits-login">
+								
+
+									 @Html.TextBoxFor(model => model.UserName, new { @placeholder = "Username", @class="email", required="" })
+						
+
+
+
+								
+
+									 @Html.PasswordFor(model => model.Password, new { @PlaceHolder = "Password", @class="password",required=""})
+
+
+
+
+								
+									<div class="wthree-text"> 
+										<ul> 
+											<li>
+												<label class="anim">
+													<input type="checkbox" class="checkbox">
+													<span> Remember me ?</span> 
+												</label> 
+											</li>
+											<li> <a href="@Url.Action("ForgotPassword","Admin")">Forgot password?</a> </li>
+										</ul>
+										<div class="clear"> </div>
+									</div>  
+									<div class="w3ls-submit">
+										<div class="submit-text">
+											<input type="submit" value="LOGIN"> 
+										</div>	
+									</div>	
+							
+							</div> 
+						</div>
+
+
+
+							}
+
+					
+		
+					</div>	
+				</div>
+				<div class="clear"> </div>
+			</div>  
+		</div>
+		<!-- copyright -->
+		<div class="copyright">
+			<p>@System.DateTime.Now.Year &copy;  Jolly Good Hire  | All rights reserved </p>
+		</div>
+		<!-- //copyright -->
+	</div>	
+
+
+

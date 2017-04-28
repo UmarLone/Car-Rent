@@ -1,0 +1,116 @@
+﻿@using Codes
+@model ViewModel.ContactsViewModel
+@{
+    Layout = "~/Views/Shared/withoutbanner.cshtml";
+}
+<div class="text-box">
+     @Html.Raw(Model != null ? Model.StaticContent.Description : "")
+</div>
+<div class="form-box">
+    <fieldset>
+        @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+        {
+            if (!string.IsNullOrWhiteSpace(ViewBag.Success) && Model.ContactsId == 0)
+            {
+            <script type="text/javascript">
+                $(function () {
+                    $("form :text").val("");
+                    $("form :password").val("");
+                    $("form :textarea").val("");
+                })
+            </script>        
+            }
+
+            if (!string.IsNullOrEmpty(ViewBag.Sucess))
+            {
+            <div class="alert alert-success">
+                @Html.Raw(ViewBag.Sucess)
+            </div>
+
+            }
+            else
+            {
+                if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Count() > 0))
+                {
+            <div class="alert alert-error">
+                @Html.ValidationSummary(false)
+            </div>
+                }
+            } 
+            <p>
+                <span>
+                    <label>Name:</label>
+                     @Html.TextBoxFor(m => m.Name, new { @class = "field", @maxlength = "200" , onkeypress="return validateAlphaNumericOnly(event);" })
+                </span>
+            </p>
+
+            <p>
+                <span>
+                    <label>Email address: </label>
+                    @Html.TextBoxFor(m => m.EmailId, new { @class = "field", @maxlength = "200" })
+
+                </span>
+            </p>
+
+            <p>
+                <span>
+                    <label> Phone: </label>
+                   @Html.TextBoxFor(m => m.Phone, new { @class = "field", @maxlength = "20" , onkeypress="return validateNumbersOnly(event);"})
+
+                </span>
+            </p>
+
+              <p>
+                <span>
+                    <label>Location: </label>
+                     @Html.DropDownListFor(c => c.Location, new SelectList((Enum.GetValues(typeof(Depot))
+               .Cast<Depot>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "---Select Location---", new { @class = "field" })
+
+                </span>
+            </p>
+                <p>
+                <span>
+                    <label>Subject:</label>
+                     @Html.TextBoxFor(m => m.Subject, new { @class = "field", @maxlength = "200" , onkeypress="return validateAlphaNumericOnly(event);" })
+                </span>
+            </p>
+
+            <p>
+                <span>
+                    <label>Your Enquery: </label>
+                    @Html.TextAreaFor(m => m.Suggestion, new { @class = "field", @maxlength = "500", Style="height:100px;" })
+
+                </span>
+            </p>
+
+             <p>
+                <span>
+                    <label> 2 + 3 =  </label>
+                    <input type="text" class="field" id="txttotal" />
+                </span>
+            </p>
+            <p>
+                <input type="submit" class="submit" onclick="return CheckSubmit();" value="Submit">
+            </p>
+        }
+    </fieldset>
+</div>
+<script>
+    function CheckSubmit() {
+        var total = $("#txttotal").val();
+        if (total == '' || total == null) {
+            alert('Please enter total.');
+            $("#txttotal").focus();
+            return false;
+        }
+        else if (parseInt(total) != 5) {
+            alert('Please enter correct total.');
+            $("#txttotal").focus();
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+</script>

@@ -1,0 +1,492 @@
+﻿@using Codes
+@model ViewModel.BookingViewModel
+@{
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+<script src="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css    " ></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
+ @using (Html.BeginForm("Booking", "Vehicle", FormMethod.Post))
+        {
+            if (!string.IsNullOrWhiteSpace(ViewBag.Success) && Model.BookingId == 0)
+            {
+            <script type="text/javascript">
+                $(function () {
+                    $("form :text").val("");
+                    $("form :password").val("");
+                    $("form :textarea").val("");
+                })
+            </script>        
+            }
+
+            if (!string.IsNullOrEmpty(ViewBag.Sucess))
+            {
+            <div class="alert alert-success">
+                @Html.Raw(ViewBag.Sucess)
+            </div>
+
+            }
+            else
+            {
+                if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Count() > 0))
+                {
+            <div class="alert alert-error">
+                @Html.ValidationSummary(false)
+            </div>
+                }
+            } 
+
+
+
+
+
+<section class="mainContent full-width clearfix">
+      <div class="container">
+        
+        <div class="row">
+          <div class="col-sm-4 col-sm-push-8 col-xs-12">
+            
+          </div>
+          <div class="col-sm-8  col-sm-pull-4 col-xs-12">
+        
+              <div class="panel panel-default checkoutInfo">
+                <div class="panel-heading bg-color-3 border-color-3">
+                  <h3 class="panel-title">Booking Form</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for="">First Name</label>
+                   
+		    @Html.TextBoxFor(m => m.Name, new { @class="form-control border-color-1", @maxlength = "200", onkeypress = "return validateAlphaNumericOnly(event);" })
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for="">Last Name</label>
+            
+                         @Html.TextBoxFor(m => m.SurName, new { @class="form-control border-color-2", @maxlength = "200", onkeypress = "return validateAlphaNumericOnly(event);" })
+									
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for="">Email</label>
+                    
+
+                        @Html.TextBoxFor(m => m.Email, new { @class="form-control border-color-3", @maxlength = "200" })
+									
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for="">Phone</label>
+                  
+
+                        @Html.TextBoxFor(m => m.HomePhone, new { @class="form-control border-color-4", @maxlength = "20", onkeypress = "return validateNumbersOnly(event);" })
+
+									
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for="">Address</label>
+                  
+
+                           @Html.TextBoxFor(m => m.HouseNumber, new { @class = "form-control border-color-5", @maxlength = "20", onkeypress = "return validateNumbersOnly(event);" })
+									
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for="">City</label>
+                 
+
+                           @Html.TextBoxFor(m => m.Street, new { @class="form-control border-color-6" , @maxlength = "200" })
+
+
+
+
+
+									
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for="">State/Region</label>
+                    
+
+                                @Html.TextBoxFor(m => m.Town, new { @class="form-control border-color-1", @maxlength = "8" })
+
+
+
+
+
+
+
+									
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for="">Zip</label>
+             
+
+                         @Html.TextBoxFor(m => m.PostCode, new { @class="form-control border-color-2", @maxlength = "8" })
+
+
+
+
+									
+                    </div>
+                  </div>
+
+
+
+
+							
+                    <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for="">Pick up Time</label>
+             
+                @Html.DropDownListFor(c => c.StartTime, new SelectList((Enum.GetValues(typeof(TimeSlots))
+               .Cast<TimeSlots>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "---Select Time---", new { @class="form-control border-color-2" })
+
+                      
+
+
+
+
+									
+                    </div>
+                  </div>
+
+
+                    <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for="">Pick up Place</label>
+             
+                 @Html.DropDownListFor(c => c.StartDeopt, new SelectList((Enum.GetValues(typeof(Depot))
+               .Cast<Depot>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "---Select Depot---", new { @class="form-control border-color-2" })
+   
+
+
+
+
+									
+                    </div>
+                  </div>
+
+
+                    <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for="">Drop off Time</label>
+               @Html.DropDownListFor(c => c.ReturnTime, new SelectList((Enum.GetValues(typeof(TimeSlots))
+               .Cast<TimeSlots>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "---Select Time---", new { @class = "form-control border-color-3" })
+
+
+
+
+									
+                    </div>
+                  </div>
+
+                      <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for="">Drop off Place</label>
+            
+               @Html.DropDownListFor(c => c.ReturnDeopt, new SelectList((Enum.GetValues(typeof(Depot))
+               .Cast<Depot>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "---Select Depot---", new { @class = "form-control border-color-1" })
+
+
+									
+                    </div>
+                  </div>
+
+
+
+                     <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for="">Vehicle type</label>
+            
+
+                     @Html.DropDownListFor(c => c.Type, new SelectList((Enum.GetValues(typeof(CarType))
+               .Cast<CarType>()
+                .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "---Select Vehicle Type---", new { @class = "form-control border-color-3", onchange = "GetVehicles(this.value)" })
+
+									
+                    </div>
+                  </div>
+
+
+
+                     <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for="">Vehicle</label>
+            
+
+                   @Html.DropDownListFor(m => m.CarId, new SelectList(ViewBag.Cars, "Value", "Text"), "---Select Vehicle---", new { @class = "form-control border-color-2", onchange = "GetRentalPlan(this.value)" })
+					
+                    </div>
+                  </div>
+
+
+
+                     <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for=""> Rental Plan</label>
+            
+               @Html.DropDownListFor(m => m.RentalPlanId, new SelectList(ViewBag.RentalPlans, "Value", "Text"), "---Select Rental Plan---", new { @class = "form-control border-color-1", onclick="CalculateReturnDate()", id="#RentalPlanId"  })
+
+                		
+                    </div>
+                  </div>
+
+
+					
+						  <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for=""> Start Date</label>
+            
+               @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control border-color-4  calender", @id="StartDate" ,  @maxlength = "200", Value = ""})
+
+                		
+                    </div>
+                  </div>
+	  <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                      <label for=""> Return Date</label>
+            
+                @Html.TextBoxFor(m => m.ReturnDate, new { @class = "form-control border-color-4  calender", @id="ReturnDate", @maxlength = "200", Value = ""})
+                		
+                    </div>
+                  </div>
+
+
+
+
+             
+
+							
+                  
+
+
+                    <div class="form-group">
+                    <div class="col-sm-6 col-xs-12">
+                
+			<div class="g-recaptcha" data-callback="CallBack" data-sitekey="6LfqnxIUAAAAAEVqaLWKvJjVOfQLBh1fnqPTDNIv"></div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+
+
+              
+
+							
+                  <div class="form-group">
+                    <div class="checkbox col-xs-12">
+                      <label>
+                        <input type="checkbox" id="checkTC"=> I have read and accept the <a href="#">terms and conditions</a>
+                      </label>
+                    </div>
+								<div class="formBtnArea">
+
+
+									
+                      <button type="submit" class="btn btn-primary" id="Sendbtn"= style="float: right; width: 100%;" onclick="return CheckSubmit();">Submit</button>
+
+
+									  
+                    </div>
+                  </div>
+                </div>
+							
+              </div>
+
+				
+  
+          </div>
+        </div>
+      </div>
+    </section>
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    function CheckSubmit() {
+     
+
+       if (grecaptcha.getResponse().length === 0) {
+            alert('Please check recapture');
+          
+            return false;
+        }
+
+
+	
+
+        else if (!$("#checkTC").is(":checked")) {
+            alert('Please accept the term and policy before submit.');
+            return false;
+        }
+        else {
+            return true;
+	
+        }
+    }
+
+    $(function () {
+
+        $('#ReturnDate').datepicker({
+            dateFormat: "mm/dd/yy",
+            onSelect: function (date) {
+
+                var RentalPlanId = $("#RentalPlanId").val();
+                var daysValue = 0;
+
+                var Criteria = JSON.stringify({ RentalPlanId: RentalPlanId });
+                $.ajaxSetup({ cache: false });
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetDays","Vehicle")',
+                    data: Criteria,
+                    async: false,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    error: function (error) {
+                        // alert('Error:' + error.responseText);
+                    },
+                    success: function (data) {
+                        daysValue = data;
+                    }
+                });
+                if (daysValue > 0) {
+                    var date2 = $('#StartDate').datepicker('getDate');
+                    date2.setDate(date2.getDate() + daysValue);
+                    $('#ReturnDate').datepicker('setDate', date2);
+                }
+             },
+
+        });
+
+        $("#StartDate").datepicker({
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            minDate: 0,
+            maxDate: '+30y',
+            onSelect: function (date) {
+
+                var RentalPlanId = $("#RentalPlanId").val();
+                var daysValue = 0;
+
+                var Criteria = JSON.stringify({ RentalPlanId: RentalPlanId });
+                $.ajaxSetup({ cache: false });
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetDays","Vehicle")',
+                    data: Criteria,
+                    async: false,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    error: function (error) {
+                        // alert('Error:' + error.responseText);
+                    },
+                    success: function (data) {
+                        daysValue = data;
+                    }
+                });
+
+                if (daysValue > 0) {
+                    var date2 = $('#StartDate').datepicker('getDate');
+                    date2.setDate(date2.getDate() + daysValue);
+                    $('#ReturnDate').datepicker('setDate', date2);
+                }
+            },
+            inline: true
+        });
+    })
+
+
+    function CalculateReturnDate() {
+
+       $("#StartDate").val('');
+        $("#ReturnDate").val('');
+       
+    }
+
+
+
+	
+</script>
+
+ <script>
+        $(document).ready(function () {
+            $(".drop-menu").click(function () {
+                $(".sub-menu").slideToggle();
+            });
+        });
+
+
+
+
+          $(function () {
+        $(".calender").datepicker({
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            minDate: 0,
+            maxDate: '+30y',
+            inline: true
+        });
+    })
+
+
+
+
+	   function GetRentalPlan(CarId) {
+	        $.post('@Url.Action("GetRentalPlan", "Booking")', { CarId: CarId }, function (data) {
+	            var r = '<OPTION VALUE="">Select</OPTION>';
+	            for (var i = 0; i < data.length; i++) {
+	                r += '<OPTION VALUE="' + data[i].Value + '">' + data[i].Text + '</OPTION>';
+	            }
+	            $("#RentalPlanId").html(r);
+	        }, "json");
+	    }
+
+</script>
+
+<script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>

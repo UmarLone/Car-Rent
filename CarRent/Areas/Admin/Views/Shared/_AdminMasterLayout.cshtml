@@ -1,0 +1,449 @@
+﻿@using Codes
+
+<!DOCTYPE html>
+ <html lang="en" class="no-js"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+	<meta charset="utf-8" />
+	<title>
+     Jolly Good Van Hire | Admin
+	</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="keywords" content="Augment Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+ <!-- Bootstrap Core CSS -->
+   
+  
+<link href="@Url.Content("~/content/admincontent/css/bootstrap.min.css")" rel="stylesheet" type="text/css">
+<!-- Custom CSS -->
+<link href="@Url.Content("~/content/admincontent/css/style.css")" rel="stylesheet" type="text/css">
+<!-- Graph CSS -->
+<link href="@Url.Content("~/content/admincontent/css/font-awesome.css")" rel="stylesheet"> 
+
+		<link href="@Url.Content("~/content/admincontent/css/icon-font.min.css")" rel="stylesheet"> 
+
+<!-- jQuery -->
+<link href="http://fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400" rel="stylesheet" type="text/css">
+<!-- lined-icons -->
+
+<!-- //lined-icons -->
+
+    <script href="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script href="@Url.Content("~/content/admincontent/js/amcharts.js")"></script>	
+<script href="@Url.Content("~/content/admincontent/js/serial.js")"></script>	
+<script href="@Url.Content("~/content/admincontent/js/light.js")"></script>	
+<script href="@Url.Content("~/content/admincontent/js/radar.js")"></script>	
+<link href="@Url.Content("~/content/admincontent/css/fabochart.css")" rel="stylesheet" type="text/css">
+<!--clock init-->
+<script href="@Url.Content("~/content/admincontent/js/css3clock.js")"></script>
+<!--Easy Pie Chart-->
+<!--skycons-icons-->
+<script href="@Url.Content("~/content/admincontent/js/skycons.js")"></script>
+
+<script href="@Url.Content("~/content/admincontent/js/jquery.easydropdown.js")"></script>
+    <style>
+
+
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url('@Url.Content("~/content/ThemeNew/loader.gif")') center no-repeat #fff;
+}
+
+
+
+
+    </style>
+<!--//skycons-icons-->
+</head>
+
+<body style="">
+    <div class="se-pre-con"></div>
+   <div class="page-container sidebar-collapsed-back">
+   <!--/content-inner-->
+	<div class="left-content">
+	   <div class="inner-content">
+		<!-- header-starts -->
+			<div class="header-section">
+						<!--menu-right-->
+						<div class="top_menu">
+						        <div id="main-search"  class="main-search" style="display: none;">
+											<form>
+											   <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" class="text">
+												<input type="submit" value="">
+											</form>
+									<div class="close"><img src="@Url.Content("~/Content/AdminContent/images/cross.png")"></div>
+								</div>
+									<div class="srch"><button></button></div>
+									<script type="text/javascript">
+										 $('#main-search').hide();
+										$('button').click(function (){
+											$('#main-search').show();
+											$('#main-search text').focus();
+										}
+										);
+										$('.close').click(function(){
+											$('#main-search').hide();
+										});
+									</script>
+							<!--/profile_details-->
+								<div class="profile_details_left">
+									<ul class="nofitications-dropdown">
+											
+									       <li class="dropdown note">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope-o"></i> <span class="badge">3</span></a>
+
+												
+													<ul class="dropdown-menu two first">
+														<li>
+															<div class="notification_header">
+																<h3>You have 3 new messages  </h3> 
+															</div>
+														</li>
+														<li><a href="#">
+														   <div class="user_img"><img src="@Url.Content("~/Content/AdminContent/images/1.jpg")"   alt=""></div>
+														   <div class="notification_desc">
+															<p>Lorem ipsum dolor sit amet</p>
+															<p><span>1 hour ago</span></p>
+															</div>
+														   <div class="clearfix"></div>	
+														 </a></li>
+														 <li class="odd"><a href="#">
+															<div class="user_img"><img src="@Url.Content("~/Content/AdminContent/images/in.jpg")" alt=""></div>
+														   <div class="notification_desc">
+															<p>Lorem ipsum dolor sit amet </p>
+															<p><span>1 hour ago</span></p>
+															</div>
+														  <div class="clearfix"></div>	
+														 </a></li>
+														<li><a href="#">
+														   <div class="user_img"><img src="@Url.Content("~/Content/AdminContent/images/in1.jpg")" alt=""></div>
+														   <div class="notification_desc">
+															<p>Lorem ipsum dolor sit amet </p>
+															<p><span>1 hour ago</span></p>
+															</div>
+														   <div class="clearfix"></div>	
+														</a></li>
+														<li>
+															<div class="notification_bottom">
+																<a href="#">See all messages</a>
+															</div> 
+														</li>
+													</ul>
+										</li>
+										
+							<li class="dropdown note">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell-o"></i> <span class="badge">5</span></a>
+
+									<ul class="dropdown-menu two">
+										<li>
+											<div class="notification_header">
+												<h3>You have 5 new notification</h3>
+											</div>
+										</li>
+										<li><a href="#">
+											<div class="user_img"><img src="@Url.Content("~/Content/AdminContent/images/in.jpg")" alt=""></div>
+										   <div class="notification_desc">
+											<p>Lorem ipsum dolor sit amet</p>
+											<p><span>1 hour ago</span></p>
+											</div>
+										  <div class="clearfix"></div>	
+										 </a></li>
+										 <li class="odd"><a href="#">
+											<div class="user_img"><img src="@Url.Content("~/Content/AdminContent/images/in5.jpg")" alt=""></div>
+										   <div class="notification_desc">
+											<p>Lorem ipsum dolor sit amet </p>
+											<p><span>1 hour ago</span></p>
+											</div>
+										   <div class="clearfix"></div>	
+										 </a></li>
+										 <li><a href="#">
+											<div class="user_img"><img src="@Url.Content("~/Content/AdminContent/images/in8.jpg")" alt=""></div>
+										   <div class="notification_desc">
+											<p>Lorem ipsum dolor sit amet </p>
+											<p><span>1 hour ago</span></p>
+											</div>
+										   <div class="clearfix"></div>	
+										 </a></li>
+										 <li>
+											<div class="notification_bottom">
+												<a href="#">See all notification</a>
+											</div> 
+										</li>
+									</ul>
+							</li>	
+						<li class="dropdown note">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tasks"></i> <span class="badge blue1">9</span></a>
+										<ul class="dropdown-menu two">
+										<li>
+											<div class="notification_header">
+												<h3>You have 9 pending task</h3>
+											</div>
+										</li>
+										<li><a href="#">
+												<div class="task-info">
+												<span class="task-desc">Database update</span><span class="percentage">40%</span>
+												<div class="clearfix"></div>	
+											   </div>
+												<div class="progress progress-striped active">
+												 <div class="bar yellow" style="width:40%;"></div>
+											</div>
+										</a></li>
+										<li><a href="#">
+											<div class="task-info">
+												<span class="task-desc">Dashboard done</span><span class="percentage">90%</span>
+											   <div class="clearfix"></div>	
+											</div>
+										   
+											<div class="progress progress-striped active">
+												 <div class="bar green" style="width:90%;"></div>
+											</div>
+										</a></li>
+										<li><a href="#">
+											<div class="task-info">
+												<span class="task-desc">Mobile App</span><span class="percentage">33%</span>
+												<div class="clearfix"></div>	
+											</div>
+										   <div class="progress progress-striped active">
+												 <div class="bar red" style="width: 33%;"></div>
+											</div>
+										</a></li>
+										<li><a href="#">
+											<div class="task-info">
+												<span class="task-desc">Issues fixed</span><span class="percentage">80%</span>
+											   <div class="clearfix"></div>	
+											</div>
+											<div class="progress progress-striped active">
+												 <div class="bar  blue" style="width: 80%;"></div>
+											</div>
+										</a></li>
+										<li>
+											<div class="notification_bottom">
+												<a href="#">See all pending task</a>
+											</div> 
+										</li>
+									</ul>
+							</li>		   							   		
+							<div class="clearfix"></div>	
+								</ul>
+							</div>
+							<div class="clearfix"></div>	
+							<!--//profile_details-->
+						</div>
+						<!--//menu-right-->
+					<div class="clearfix"></div>
+				</div>
+					<!-- //header-ends -->
+
+						<div class="outter-wp">
+								<!--custom-widgets-->
+												
+													
+													
+												
+												<div class="charts">
+												  <div class="chrt-inner">
+												    										
+												@RenderBody()
+												
+												<div class="row">
+				
+					</div>
+												
+														
+
+											
+												
+										
+									
+									</div>
+									
+									</div>
+									
+									</div>
+									 <!--footer section start-->
+										<footer>
+										  @System.DateTime.Now.Year &copy; JollyGood Van Hire | All Rights Reserved
+										</footer>
+									<!--footer section end-->
+								</div>
+							</div>
+				<!--//content-inner-->
+			<!--/sidebar-menu-->
+				<div class="sidebar-menu">
+					<header class="logo">
+					<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> <a href="@Url.Action("Index","Dashboard")"> <span id="logo"><img style="margin-top:1px;" src="@Url.Content("~/content/themenew/img/logo.png")" height="50" /></span> 
+					<!--<img id="logo" src="" alt="Logo"/>--> 
+				  </a> 
+				</header>
+			<div style="border-top:1px solid rgba(69, 74, 84, 0.7)"></div>
+			<!--/down-->
+
+
+			 	@{  var Name ="";
+                    //  string imageFile = HttpContext.Current.Server.MapPath("~/Content/" + "nologo.png");
+                    if (Codes.SessionWrapper.Admin != null)
+                    {
+                        Name = Codes.SessionWrapper.Admin.UserName;
+                        
+                    }
+
+
+
+                   }
+                 
+							<div class="down">	
+							  
+				
+									  <a href="#"><img src="data:image/jpg;base64,@Convert.ToBase64String(Codes.SessionWrapper.Admin.ProfilePhoto,0, Codes.SessionWrapper.Admin.ProfilePhoto.Length)" width="160" height="160"></a>
+									  <a href="#"><span class=" name-caret">
+
+									 
+									 Hello @Name
+
+					</span></a>
+									
+									<ul>
+									<li><a class="tooltips" href="@Url.Action("Profile","Admin")"><span>Profile</span><i class="lnr lnr-user"></i></a></li>
+										<li><a class="tooltips" href="@Url.Action("ChangePassword","Admin")"><span>Change Password</span><i class="lnr lnr-cog"></i></a></li>
+										<li><a class="tooltips" href="@Url.Action("Logout","Admin")"><span>Log out</span><i class="lnr lnr-power-switch"></i></a></li>
+										</ul>
+									</div>
+							   <!--//down-->
+                           <div class="menu">
+									<ul id="menu">
+										<li><a href="@Url.Action("Index","Dashboard")"><i class="fa fa-tachometer"></i> <span style="position: relative;">Dashboard</span></a></li>
+										 <li id="menu-academico"><a href="#"><i class="fa fa-table"></i> <span style="position: relative;"> Banners</span> <span class="fa fa-angle-right" style="float: right; position: relative;"></span></a>
+										   <ul id="menu-academico-sub">
+											<li id="menu-academico-avaliacoes"><a href="@Url.Action("Index","Banner")"> All Banners</a></li>
+											<li id="menu-academico-boletim"><a href="@Url.Action("Detail","Banner")">Add New Banner</a></li>
+										
+											
+										  </ul>
+										</li>
+										 <li id="menu-academico"><a href="#"><i class="fa fa-file-text-o"></i> <span style="position: relative;">Plans</span> <span class="fa fa-angle-right" style="float: right; position: relative;"></span></a>
+											 <ul id="menu-academico-sub">
+												<li id="menu-academico-avaliacoes"><a href="@Url.Action("Index","RentalPlan")">All Plans</a></li>
+												<li id="menu-academico-boletim"><a href="@Url.Action("Detail","RentalPlan")">Add New Plans</a></li>
+
+											  </ul>
+										 </li>
+
+
+										  <li id="menu-academico"><a href="#"><i class="fa fa-file-text-o"></i> <span style="position: relative;">Vehicles</span> <span class="fa fa-angle-right" style="float: right; position: relative;"></span></a>
+											 <ul id="menu-academico-sub">
+												<li id="menu-academico-avaliacoes"><a href="@Url.Action("Index","Car")">All Vehicles</a></li>
+												<li id="menu-academico-boletim"><a href="@Url.Action("Detail","Car")">Add New Vehicle</a></li>
+
+											  </ul>
+										 </li>
+
+
+										  <li id="menu-academico"><a href="#"><i class="fa fa-file-text-o"></i> <span style="position: relative;">Bookings</span> <span class="fa fa-angle-right" style="float: right; position: relative;"></span></a>
+											 <ul id="menu-academico-sub">
+												<li id="menu-academico-avaliacoes"><a href="@Url.Action("Index","Booking")">All Bookings</a></li>
+												<li id="menu-academico-boletim"><a href="@Url.Action("Detail","Booking")">Add New Booking</a></li>
+
+											  </ul>
+										 </li>
+
+
+										 	  <li id="menu-academico"><a href="#"><i class="fa fa-file-text-o"></i> <span style="position: relative;">Site Content</span> <span class="fa fa-angle-right" style="float: right; position: relative;"></span></a>
+											 <ul id="menu-academico-sub">
+												<li id="menu-academico-avaliacoes"><a href="@Url.Action("Index","StaticContent")">All Contents</a></li>
+												<li id="menu-academico-boletim"><a href="@Url.Action("Detail","StaticContent")">Add New  Contents</a></li>
+
+											  </ul>
+										 </li>
+
+										  <li id="menu-academico"><a href="#"><i class="fa fa-file-text-o"></i> <span style="position: relative;">Subscriptions</span> <span class="fa fa-angle-right" style="float: right; position: relative;"></span></a>
+											 <ul id="menu-academico-sub">
+												<li id="menu-academico-avaliacoes"><a href="@Url.Action("Index","User")">All Subscriptions</a></li>
+												<li id="menu-academico-boletim"><a  href="@Url.Action("Detail","User")">Add New  Subscription</a></li>
+
+											  </ul>
+										 </li>
+
+
+										  <li id="menu-academico"><a href="#"><i class="fa fa-file-text-o"></i> <span style="position: relative;">Enquiries</span> <span class="fa fa-angle-right" style="float: right; position: relative;"></span></a>
+											 <ul id="menu-academico-sub">
+												<li id="menu-academico-avaliacoes"><a href="@Url.Action("Index","ContactUs")">All Enquiries</a></li>
+												<li id="menu-academico-boletim"><a href="@Url.Action("Detail","ContactUs")">Add New  Enquiry</a></li>
+
+											  </ul>
+										 </li>
+
+
+
+						
+									
+								
+
+							     
+									
+								
+								  </ul>
+								</div>
+							  </div>
+							  <div class="clearfix"></div>		
+							</div>
+							<script>
+							var toggle = true;
+										
+							$(".sidebar-icon").click(function() {                
+							  if (toggle)
+							  {
+								$(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+								$("#menu span").css({"position":"absolute"});
+							  }
+							  else
+							  {
+								$(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+								setTimeout(function() {
+								  $("#menu span").css({"position":"relative"});
+								}, 400);
+							  }
+											
+											toggle = !toggle;
+										});
+							</script>
+<!--js -->
+    <script src="@Url.Content("~/content/admin/plugins/ckeditor/jquery.js")"></script>   
+		<script src="@Url.Content("~/content/admin/plugins/ckeditor/ckeditor.js")"></script>    
+     
+<link rel="stylesheet" href="@Url.Content("~/content/admincontent/css/vroom.css")">
+<script type="text/javascript" href="@Url.Content("~/content/admincontent/js/vroom.js")"></script>
+<script type="text/javascript" href="@Url.Content("~/content/admincontent/js/TweenLite.min.js")"></script>
+<script type="text/javascript" href="@Url.Content("~/content/admincontent/js/CSSPlugin.min.js")"></script>
+<script href="@Url.Content("~/content/admincontent/js/jquery.nicescroll.js")"></script>
+<script href="@Url.Content("~/content/admincontent/js/scripts.js")"></script>
+		<div id="ascrail2000" class="nicescroll-rails" style="width: 5px; z-index: 1000; background: rgb(0, 37, 97); cursor: default; position: fixed; top: 0px; height: 100%; right: 0px; opacity: 0; display: none;"><div style="position: relative; top: 0px; float: right; width: 5px; height: 58px; background-color: rgb(0, 198, 215); border: 0px; background-clip: padding-box; border-radius: 10px;"></div></div><div id="ascrail2000-hr" class="nicescroll-rails" style="height: 5px; z-index: 1000; background: rgb(0, 37, 97); position: fixed; left: 0px; width: 100%; bottom: 0px; cursor: default; display: none; opacity: 0;"><div style="position: relative; top: 0px; height: 5px; width: 1600px; background-color: rgb(0, 198, 215); border: 0px; background-clip: padding-box; border-radius: 10px;"></div></div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+   <script href="@Url.Content("~/content/admincontent/js/bootstrap.min.js")"></script>
+    <script>
+
+
+                            $(window).load(function () {
+
+                                $(".se-pre-con").fadeOut("slow");;
+                            });
+
+
+    </script>
+</body>
+
+</html>

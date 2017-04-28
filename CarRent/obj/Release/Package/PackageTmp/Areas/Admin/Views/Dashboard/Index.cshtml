@@ -1,0 +1,92 @@
+﻿@model ViewModel.DashBoardChart
+@using Codes
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml"; 
+}
+
+<h2>Administrative Controls</h2>
+
+
+<script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto" ></div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        HighlightMenu('lidashboard');
+    });
+
+    $(function () {
+        $('#container').highcharts({
+            chart: {
+            },
+            title: {
+                text: 'Booking Chart'
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+            },
+            tooltip: {
+                formatter: function () {
+                    var s;
+                    if (this.point.name) { // the pie chart
+                        s = '' +
+                            this.point.name + ': ' + this.y + ' Booking';
+                    } else {
+                        s = '' +
+                            this.x + ': ' + this.y;
+                    }
+                    return s;
+                }
+            },
+            labels: {
+                items: [{
+                    html: 'Booking History and Analyse (Total Car Booked: @Model.TotalCar and Total Van Booked: @Model.TotalVan)',
+                    style: {
+                        left: '40px',
+                        top: '8px',
+                        color: 'black'
+                    }
+                }]
+            },
+            series: [{
+                type: 'column',
+                name: 'Car',
+                data: [@Model.CarJan, @Model.CarFeb, @Model.CarMar, @Model.CarApr, @Model.CarMay, @Model.CarJune, @Model.CarJuly, @Model.CarAug, @Model.CarSept, @Model.CarOct, @Model.CarNov, @Model.CarDec]
+            }, {
+                type: 'column',
+                name: 'Van',
+                data: [@Model.VanJan, @Model.VanFeb, @Model.VanMar, @Model.VanApr, @Model.VanMay, @Model.VanJune, @Model.VanJuly, @Model.VanAug, @Model.VanSept, @Model.VanOct, @Model.VanNov, @Model.VanDec]
+            }, {
+                type: 'spline',
+                name: 'Average',
+                data: [@Model.AvgJan, @Model.AvgFeb, @Model.AvgMar, @Model.AvgApr, @Model.AvgMay, @Model.AvgJune, @Model.AvgJuly, @Model.AvgAug, @Model.AvgSept, @Model.AvgOct, @Model.AvgNov, @Model.AvgDec],
+                marker: {
+                    lineWidth: 2,
+                    lineColor: Highcharts.getOptions().colors[3],
+                    fillColor: 'white'
+                }
+            }, {
+                type: 'pie',
+                name: 'Overall Booking History and Analyse',
+                data: [{
+                    name: 'Car',
+                    y: @Model.TotalCar,
+                    color: Highcharts.getOptions().colors[0] // Car's color
+                }, {
+                    name: 'Van',
+                    y: @Model.TotalVan,
+                    color: Highcharts.getOptions().colors[1] // Van's color
+                }],
+                center: [170, 70],
+                size: 100,
+                showInLegend: false,
+                dataLabels: {
+                    enabled: false
+                }
+            }]
+        });
+    });
+
+</script>

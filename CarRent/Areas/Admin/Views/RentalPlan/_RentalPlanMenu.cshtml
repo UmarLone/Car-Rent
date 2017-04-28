@@ -1,0 +1,20 @@
+﻿@using Codes
+<ul class="page-breadcrumb breadcrumb">
+
+    <li>
+        <i class="icon-home"></i>
+        <a href="@Url.Action("Index", "Dashboard")">
+              Dashboard
+        </a>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "RentalPlan")">
+              All Rental Plans
+        </a>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li><a href="@Url.Action("Detail", "RentalPlan")">
+       Add New Rental Plan
+         </a></li>
+</ul>

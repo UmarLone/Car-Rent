@@ -1,0 +1,111 @@
+﻿@using Codes
+@model IEnumerable<Models.RentalPlan>
+@{
+    ViewBag.Title = "Index";
+ Layout = "~/Areas/admin/Views/Shared/_AdminMasterLayout.cshtml"; 
+}
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+            <h3 class="page-title">
+                Rental Plan Management
+            <small> 
+               All Rental Plans
+            </small>
+        </h3>
+      @Html.Partial("_RentalPlanMenu")
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<!-- BEGIN SAMPLE TABLE PORTLET-->
+<div class="portlet box blue">
+
+    @using (Html.BeginForm("Index", "RentalPlan", FormMethod.Get))
+    {
+        <div class="alert alert-success">
+            @Html.TextBox("Search", ViewBag.Search as string, new { @class = "form-control serchtxt", onkeypress = "return validateAlphaNumericOnlyOnSearch(event,'searchData');" })
+            <input type="submit" id="searchData" class="btn green" value="Search" />
+        </div>             
+    }
+
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-cogs"></i>All Rental Plans</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+
+            <a href="javascript:;" class="reload"></a>
+
+        </div>
+    </div>
+
+    <div class="portlet-body">
+        @if (TempData["Message"] != null && TempData["Message"] != "")
+        {
+            <div class="alert alert-success">
+                <button class="close" data-dismiss="alert"></button>
+                @TempData["Message"]
+            </div>
+
+        }
+
+		
+       <div class="graph">
+        <div class="tables">
+				  <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>RentalPlan Name</th>
+                        <th>Days</th>
+                         <th>Description</th>
+                        <th>IsActive</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                                  
+                        int i = 0;
+                        foreach (var obj in Model)
+                        {
+                            i++;
+                        <tr>
+                            <td>@i</td>
+                            <td>@obj.RentalPlanName</td>
+                             <td>@obj.NoOfDays</td>
+                            <td>@Extensions.HtmlStrip(obj.Summary).TruncateAt(150)</td>
+                             <td>@(obj.IsActive == true ? "Yes" : "No")</td>
+                            <td colspan="2">
+                                <a href="@Url.Action("Detail", "RentalPlan", new { Id = obj.RentalPlanId })">Edit</a>|
+                                      <a href="@Url.Action("Delete", "RentalPlan", new { Id = obj.RentalPlanId })" onclick="return confirm('Are you sure want to remove this RentalPlan?')">
+                                         Delete
+                                      </a>
+                            </td>
+                        </tr>
+                        }
+                        if (i == 0)
+                        {
+                        <tr>
+                            <td colspan="5">No Record Found</td>
+                        </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+			</div>
+        @Html.Partial("_Paging")
+    </div>
+</div>
+<!-- END SAMPLE TABLE PORTLET-->
+ <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.watermark.min.js")"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        HighlightMenu('lirent', 'lirentsubmenu', 'lirentall');
+    });
+
+</script>

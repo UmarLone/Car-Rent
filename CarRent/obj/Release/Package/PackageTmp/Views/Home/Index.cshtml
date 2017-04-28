@@ -1,0 +1,92 @@
+﻿@model ViewModel.StaticContentViewModel
+@{
+}
+@*<div class="car-box">
+    <h3>Book Car</h3>
+
+    <p>
+        <label>location</label>
+        <input type="text" class="fields" placeholder="Enter city zip code">
+    </p>
+
+    <p>
+        <label>Return location</label>
+        <input type="text" class="fields" placeholder="Enter city zip code">
+    </p>
+
+    <div class="dates">
+        <p>
+            <label>Pick-up-date</label>
+            <span></span>
+            <input type="text" class="fields">
+        </p>
+
+        <p>
+            <label>drop-up-date</label>
+            <span></span>
+            <input type="text" class="fields">
+        </p>
+    </div>
+
+    <input type="submit" class="sub" value="Continue">
+</div>*@
+
+<div class="text-box">
+     @Html.Raw(Model != null ? Model.Description : "")
+</div>
+
+<div class="sigh-up">
+    <p>Signup to Our Newslatters</p>
+    
+        <ul>
+            <li>
+
+                <input type="email" id="EmailId" class="field" placeholder="example@gmail.com">
+            </li>
+            <li>
+                <input type="submit" onclick="return PostComments();" class="butn" value="Subscribe">
+            </li>
+        </ul>
+    
+</div>
+<script type="text/javascript">
+
+    
+
+    
+
+
+    function PostComments() {
+
+        if ($('#EmailId').val() == '') {
+            alert("Please enter email id!");
+            return false;
+        }
+
+        else {
+
+            var Criteria = JSON.stringify({ Email: $('#EmailId').val() });
+            $.ajaxSetup({ cache: false });
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Reply","Home")',
+                data: Criteria,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                error: function (error) {
+                    // alert('Error:' + error.responseText);
+                },
+                success: function (data) {
+                    if (parseInt(data) > 0) {
+                        $('#EmailId').val('');
+                        alert("Thanks for subscribing.");
+                    }
+                    else if (data.result == false) {
+                        alert("Subscription failed.");
+                    }
+                }
+            });
+        }
+    }
+
+</script>

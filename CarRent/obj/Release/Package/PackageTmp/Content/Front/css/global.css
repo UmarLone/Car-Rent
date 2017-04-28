@@ -1,0 +1,338 @@
+/* ################################################## */
+              
+/* ################################################## */
+
+/* ### general ### */
+* { padding: 0px; margin: 0px; }
+html, body { font-family: Arial; font-size: 12px; color: #8c806e; }
+input, select, textarea { font-family: Arial; font-size: 12px; color: #8c806e; }
+body { background: #f3f3f3; }
+img { border: 0px; display: block; max-width: 100%; }
+a, input { outline: none; }
+
+/* ### global classes ### */
+.clear { clear: both; height: 0px; overflow: hidden; }
+
+.bg img.big { width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; display: block; }
+header, footer, section, aside, nav, article, figure { display: block; }
+
+
+/* ### wrapper ### */
+#wrapper { position: relative; display: block; width: 100%; min-height: 100%; background: url('../images/bg2.png') center top repeat-x; }
+
+/* ### main container ### */
+#mainCntr { width: 100%; }
+
+#mid { width: 100%; margin: 0 auto; }
+
+/* ### header container ### */
+#headerCntr { width: 100%; overflow: hidden; background: url(../images/head-bg.png) repeat-x left 13px; margin: 7px 0 0 0; width: 100%; }
+.logo { float: left; padding: 0 0 0 30px; }
+.login-box { float: right; padding: 42px 20px 0 0; }
+.login-box li { float: left; list-style: none; padding: 0 12px 0 0;}
+.login-box li a { text-decoration: none; color: #fff; text-transform: uppercase; background: url(../images/btn-bg.png) repeat-x left top; text-align: center; height: 30px; line-height: 30px; display: block; font-size: 14px; padding: 0 10px; border-radius: 3px;}
+.login-box li a:hover { background: #fff; color: #333; }
+span.drop-menu { overflow: hidden; cursor: pointer; position: absolute; top: 25px; right: 7px; }
+ul.sub-menu { display: none; position: absolute; top: 52px; right: 6px; border-radius: 3px; background: #171717; width: 150px; border: 1px solid #4b4b4b; }
+ul.sub-menu li { list-style: none; border-bottom: 1px solid #FFFFFF; }
+ul.sub-menu li a { text-decoration: none; color: #fff; display: block; font-size: 12px; padding: 6px 0 6px 17px; text-transform: uppercase; }
+ul.sub-menu li a:hover { background: #999; color: #fff; }
+
+.menu-box { overflow: hidden; display: block; background: #191970; padding: 10px; margin: 10px 0 0 0; }
+.menu-box li { list-style: none; display: block; padding: 0 10px;}
+.menu-box li a { text-decoration: none; color: #fff; text-transform: uppercase; background: url(../images/menu-bg.png) repeat-x left top; display: block; height: 33px; line-height: 33px; border: 1px solid #FFFFFF; padding: 0 0 0 20px; font-weight: bold; font-size: 12px; border-radius: 3px; }	
+.menu-box li a span { background: url(../images/menu-li.png) no-repeat right center; display: block; margin: 0 15px 0 0;}
+.menu-box li a:hover { background: url(../images/menu-hover.png) repeat-x left top;}
+.banner { width: 100%; padding: 20px 0 0 0; }
+.banner img { max-width: 100%; width: 96%; display: block; text-align: center; margin: 0 auto; background: #fff; padding: 4px; border: 2px solid #477dae; -webkit-border-radius: 7px;-moz-border-radius: 7px;border-radius: 7px; }
+
+#contentCntr { padding: 0 0; }
+.text-box { padding: 10px 15px 0 15px; }
+.text-box h2 { color: #007aa9; font-size: 18px; font-weight: normal; padding: 0 0 3px 0; }
+.text-box h3 { color: #fe3e3b; font-size: 16px; font-weight: normal; padding: 0 0 10px 0; }
+.text-box p { color: #333; font-size: 13px; padding: 0 0 10px 0; }
+.sigh-up { padding: 0; background: #191970; overflow: hidden; padding: 14px 0 13px 15px; }
+.sigh-up li { float: left; list-style: none; }
+.sigh-up p { float: left; color: #fff; padding: 5px 10px 0 0; width: 35%; }
+.sigh-up ul { float: right; width: 60%; }
+.sigh-up .field { color: #000; height: 25px; border-radius: 3px; border: 0; padding: 0 8px; margin: 0 20px 0 0; width: 84%; }
+.sigh-up .butn { border: 1px solid #FFFFFF; background: #f2303b; cursor: pointer; color: #fff; border-radius: 3px; text-align: center; font-weight: bold; height: 25px; line-height: 25px; padding: 0 20px; font-size: 13px; margin: 0 0 0 5px;  }
+.sigh-up .butn:hover { background: #fff; color: #333;border: 1px solid #FFFFFF; }
+.car-box { padding: 0 0 30px 0; overflow: hidden; background: #fff; padding: 0 10px 15px 10px; margin: 10px 0 0 0; }
+.car-box h3 { color: #2073bf; font-size: 17px; padding: 7px 0 10px 0; }
+.car-box p { display: block; padding: 0 0 13px 0; }
+.car-box label { padding: 0 0 5px 0; display: block; color: #7c848f; text-transform: uppercase; font-size: 12px; }
+.car-box .fields { width: 97%; height: 30px; background: #ffeaea; border:1px solid #ff9e9e; border-radius: 3px; color: #333; padding: 0 10px; }
+.car-box .dates { padding: 0; overflow: hidden; }
+.car-box .dates p { float: left; width: 47%; margin: 0 30px 0 0; position: relative; }
+.car-box .dates p:last-child { margin: 0;}
+.car-box .dates span { position: absolute; background: url(../images/cal.jpg) no-repeat; width: 16px; height: 16px; top: 28px; left: 10px; }
+.car-box .sub { background: #1d589a; color: #fff; text-align: center; border: 0; width: 30%; cursor: pointer; padding: 0 0; height: 29px; border-radius: 4px; margin: 0 auto; display: block; font-size: 14px; text-transform: uppercase; font-weight: bold; }
+.car-box .sub:hover { background: #fff; color: #333; border: 1px solid #1d589a; }
+.list-box { padding: 0; overflow: hidden; padding: 15px 0 0 0; }
+.list-box .Divrow { box-shadow: 0 0 8px 2px #ccc;  background: #fff; overflow: hidden; padding: 10px 20px; margin-bottom: 5px; border-top: 1px solid #CCC; border-bottom: 1px solid #CCC; }
+.list-box .Divrow .image { float: left; width: 37%; padding-right: 10px; }
+.list-box .Divrow .text { float: right; width: 56%; padding-left: 20px; }
+.list-box .Divrow .text h2 { border-bottom: 1px solid #ccc; color: #f2303b; font-size: 17px; padding-top: 10px; text-transform: uppercase; padding-bottom: 5px }
+.list-box .Divrow .text h3 { padding-top: 5px; color: #1f6fb8; font-size: 22px; text-transform: uppercase; padding-bottom: 5px }
+.list-box .Divrow .text p { color: #333; font-size: 14px; overflow: hidden; }
+.list-box .Divrow .text a { margin: 20px 0 0 0; background: #333; border: 3px solid #999; color: #fff; clear: both; display: inline-block; text-decoration: none; text-transform: uppercase; font-weight: bold; padding: 8px 25px; }
+.list-box .Divrow .text a:hover { background: #1f6fb8; color: #fff; }
+
+.detail-box { padding: 0; background: #fff; padding: 0 13px; }
+.detail-box .image { padding: 20px 0 10px 0; border-bottom: 3px solid #EBEBEB; }
+.detail-box .image img { display: block; margin: 0 auto; }
+.detail-box .text { padding: 0; overflow: hidden; }
+.detail-box .text h2 { text-align: center; padding: 10px 0 0 0; color: #ef392f; }
+.detail-box .text h3 { padding: 10px 0 0 0; color: #1e5b9f; padding: 10px 0; font-size: 16px; font-weight: normal; }
+.detail-box .text p { color: #333; padding-bottom: 10px; }
+.detail-box .text a { background: #ef392f; color: #fff; text-decoration: none; width: 95%; margin: 10px auto 5px; display: block; text-align: center; height: 37px; line-height: 37px; font-weight: bold; font-size: 14px; border-radius: 4px; }
+.detail-box .text a:hover { background: #1e5b9f; }
+
+.form-box { padding: 10px 10px; }
+.form-box fieldset { border: 0; padding: 10px 0 10px 0 ; background: #fafafa; border: 2px solid #515151;-webkit-border-radius: 7px;-moz-border-radius: 7px;border-radius: 7px;	 }
+.form-box p { display: block; }
+.form-box span { display: block; padding: 0 15px 10px 15px; }
+.form-box label { display: block; color: #000; font-size: 13px; padding: 0 0 4px 0; }
+.form-box .field { width: 92%; color: #000; border: 1px solid #1362b1; border-radius: 3px; line-height: 25px; height: 25px; padding: 0 9px; } 
+.form-box .submit { background: #1362b1; cursor: pointer; border: 0; width: 89%; font-weight: bold; height: 40px; line-height: 30px; border-radius: 4px; display: block; margin: 0 auto; color: #fff; }
+.form-box .submit:hover { background: #e42739; }
+
+
+
+.footer { background: #171717; padding:0; margin: 10px 0 0 0; }
+.footer ul { text-align: center; }
+.footer li { float: none; list-style: none; display: block; }
+.footer li a { text-transform: uppercase; border-bottom: 1px solid #999; display: block; padding: 4px 0; text-align: center; text-decoration: none; color: #fff; font-size: 12px; font-weight: bold; }
+.footer li a:hover { background: #999; color: #fff;}
+.footer p { background: #f3f3f3; text-align: center; font-size: 14px; padding: 5px 0; color: #171717; }
+
+
+	
+	/* Tablet Portrait size to standard 960 (devices and browsers) */
+	@media only screen and (min-width: 768px){
+	
+	}
+
+	/* All Mobile Sizes (devices and browser) */
+	@media only screen and (min-width: 481px) and (max-width: 767px) {
+		
+	.logo { width: 100%; float: left; padding: 0; }
+	.logo img { text-align: center; display: block; margin: 0 auto; }	
+	.login-box { float: none; padding: 40px 0 0 0; } 
+	.login-box ul { text-align: center; padding: 10px 0 0 0; }
+	.login-box ul li { float: none; display: inline-block; text-align: center; }
+	.login-box ul li a { border: 1px solid #007aa9; }
+	.car-box .dates p { float: left; width: 100%; margin: 0 30px 0 0; position: relative; }
+	.car-box .fields { width: 92%; height: 30px; background: #ffeaea; border:1px solid #ff9e9e; border-radius: 3px; color: #333; padding: 0 10px; }
+	.banner { width: 100%; padding: 20px 0 0 5px; }
+	
+	.sigh-up p { float: left; color: #fff; padding: 5px 10px 0 0; width: 35%; } 
+	.sigh-up .field { color: #000; height: 25px; border-radius: 3px; border: 0; padding: 0 8px; margin: 0 20px 0 0; width: 84%; margin-bottom: 8px; }
+	.sigh-up .butn { border: 1px solid #FFFFFF;  background: #f2303b; cursor: pointer; color: #fff; border-radius: 3px; text-align: center; font-weight: bold; height: 25px; line-height: 25px; padding: 0 20px; font-size: 13px; margin: 0 0 0 5px; }
+
+	.list-box .Divrow .text { float: right; width: 50%; padding-left: 10px; }
+	.list-box .Divrow .text h2 { color: #f2303b; font-size: 15px; padding-top: 10px; text-transform: uppercase; padding-bottom: 5px }
+	.list-box .Divrow .text h3 { color: #1f6fb8; font-size: 18px; text-transform: uppercase; padding-bottom: 5px }
+
+	
+	}
+	
+
+	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+	@media only screen and (min-width: 321px) and (max-width: 480px) {
+		
+	.logo { width: 100%; float: left; padding: 0; }
+	.logo img { text-align: center; display: block; margin: 0 auto; }	
+	.login-box { float: none; padding: 40px 0 0 0; } 
+	.login-box ul { text-align: center; padding: 10px 0 0 0; }
+	.login-box ul li { float: none; display: inline-block; text-align: center; }
+	.login-box ul li a { border: 1px solid #007aa9; }
+	.car-box .dates p { float: left; width: 100%; margin: 0 30px 0 0; position: relative; }
+	.car-box .fields { width: 92%; height: 30px; background: #ffeaea; border:1px solid #ff9e9e; border-radius: 3px; color: #333; padding: 0 10px; }
+	.banner { width: 95%; padding: 20px 0 0 5px; }
+	
+	.sigh-up p { float: left; color: #fff; padding: 5px 10px 0 0; width: 35%; } 
+	.sigh-up .field { color: #000; height: 25px; border-radius: 3px; border: 0; padding: 0 8px; margin: 0 20px 0 0; width: 84%; margin-bottom: 8px; }
+	.sigh-up .butn {  border: 1px solid #FFFFFF; background: #f2303b; cursor: pointer; color: #fff; border-radius: 3px; text-align: center; font-weight: bold; height: 25px; line-height: 25px; padding: 0 20px; font-size: 13px; margin: 0 0 0 5px; }
+
+	.list-box .Divrow .text { float: right; width: 50%; padding-left: 10px; }
+	.list-box .Divrow .text h2 { color: #f2303b; font-size: 15px; padding-top: 10px; text-transform: uppercase; padding-bottom: 5px }
+	.list-box .Divrow .text h3 { color: #1f6fb8; font-size: 18px; text-transform: uppercase; padding-bottom: 5px }
+	.list-box .Divrow .image { padding: 25px 0 0 0; }
+	
+	}
+
+	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+	@media only screen and (max-width: 320px) {
+	.logo { width: 100%; float: left; padding: 0; }
+	.logo img { text-align: center; display: block; margin: 0 auto; }	
+	.login-box { float: none; padding: 40px 0 0 0; } 
+	.login-box ul { text-align: center; padding: 10px 0 0 0; }
+	.login-box ul li { float: none; display: inline-block; text-align: center; }
+	.login-box ul li a { border: 1px solid #007aa9; }
+	.car-box .dates p { float: left; width: 100%; margin: 0 30px 0 0; position: relative; }
+	.car-box .fields { width: 92%; height: 30px; background: #ffeaea; border:1px solid #ff9e9e; border-radius: 3px; color: #333; padding: 0 10px; }
+	.banner { width: 95%; padding: 20px 0 0 5px; }
+	
+	.sigh-up p { float: left; color: #fff; padding: 5px 10px 0 0; width: 35%; } 
+	.sigh-up .field { color: #000; height: 25px; border-radius: 3px; border: 0; padding: 0 8px; margin: 0 20px 0 0; width: 84%; margin-bottom: 8px; }
+	.sigh-up .butn { border: 1px solid #FFFFFF; background: #f2303b; cursor: pointer; color: #fff; border-radius: 3px; text-align: center; font-weight: bold; height: 25px; line-height: 25px; padding: 0 20px; font-size: 13px; margin: 0 0 0 5px; }
+
+	.list-box .Divrow .text { float: right; width: 50%; padding-left: 10px; }
+	.list-box .Divrow .text h2 { color: #f2303b; font-size: 15px; padding-top: 10px; text-transform: uppercase; padding-bottom: 5px }
+	.list-box .Divrow .text h3 { color: #1f6fb8; font-size: 18px; text-transform: uppercase; padding-bottom: 5px }
+	.list-box .Divrow .image { padding: 25px 0 0 0; }
+	
+
+
+				
+	}
+
+    .pagination {
+    margin-top: 40px;
+}
+.pagination-centered {
+    text-align: center;
+}
+.pagination {
+    margin: 20px 0;
+}
+
+.pagination ul {
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    display: inline-block;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+.pagination ul > li {
+    display: inline;
+}
+
+.pagination ul > li:first-child > a, .pagination ul > li:first-child > span {
+    border-bottom-left-radius: 4px;
+    border-left-width: 1px;
+    border-top-left-radius: 4px;
+}
+.pagination ul > li > a, .pagination ul > li > span {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #FFFFFF;
+    border-color: #DDDDDD;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+    float: left;
+    line-height: 20px;
+    padding: 4px 12px;
+    text-decoration: none;
+    color:#1E6AB2;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #E9AFAA;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+    .alert h4 {
+        margin-top: 0;
+        color: inherit;
+    }
+
+    .alert .alert-link {
+        font-weight: bold;
+    }
+
+    .alert > p, .alert > ul {
+        margin-bottom: 0;
+    }
+
+        .alert > p + p {
+            margin-top: 5px;
+        }
+
+.alert-dismissable {
+    padding-right: 35px;
+}
+
+    .alert-dismissable .close {
+        position: relative;
+        top: -2px;
+        right: -21px;
+        color: inherit;
+    }
+
+.alert-success {
+    color: #468847;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+    .alert-success hr {
+        border-top-color: #c9e2b3;
+    }
+
+    .alert-success .alert-link {
+        color: #356635;
+    }
+
+.alert-info {
+    color: #3a87ad;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+    .alert-info hr {
+        border-top-color: #a6e1ec;
+    }
+
+    .alert-info .alert-link {
+        color: #2d6987;
+    }
+
+.alert-warning {
+    color: #c09853;
+    background-color: #fcf8e3;
+    border-color: #fbeed5;
+}
+
+    .alert-warning hr {
+        border-top-color: #f8e5be;
+    }
+
+    .alert-warning .alert-link {
+        color: #a47e3c;
+    }
+
+.alert-danger {
+    color: #b94a48;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+}
+
+    .alert-danger hr {
+        border-top-color: #e6c1c7;
+    }
+
+    .alert-danger .alert-link {
+        color: #953b39;
+    }
+    .footerul {
+    color: #000000 !important;
+    display: inline-block !important;
+    font-size: 11px !important;
+    margin: 0 !important;
+    text-align: center !important;
+}
+    .footerul li {
+    display: inline-block !important;
+    margin-right: 5px !important;
+    text-align: center !important;
+}
+

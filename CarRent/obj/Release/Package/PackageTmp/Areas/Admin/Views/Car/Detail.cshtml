@@ -1,0 +1,192 @@
+﻿@using Codes
+@model ViewModel.CarViewModel
+@{
+    ViewBag.Title = "Car";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+
+
+    string imageFile = HttpContext.Current.Server.MapPath("~/Content/" + "nologo.png");
+    if (!string.IsNullOrEmpty(Model.CarPhoto))
+    {
+        imageFile = HttpContext.Current.Server.MapPath(Codes.ConfigurationWrapper.GalleryPhoto + Model.CarPhoto);
+    }
+    else
+    {
+        Model.CarPhoto = "nologo.png";
+    }
+    Thumbnail thm = new Thumbnail(imageFile, 160, 160);
+    string ext = Path.GetExtension(Model.CarPhoto);
+    var resizedimage = "data:image/ " + ext.Split('.')[1] + ";base64," + Convert.ToBase64String((byte[])thm.ImageBytes);
+}
+
+
+<!-- BEGIN PAGE HEADER-->
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+         <h3 class="page-title">
+                Vehicle Management
+            <small> 
+               All Vehicles
+            </small>
+        </h3>
+         @Html.Partial("_CarMenu")
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN VALIDATION STATES-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="icon-reorder"></i>Car Details</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+
+                    <a href="javascript:;" class="reload"></a>
+
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                @using (Html.BeginForm("Detail", "Car", FormMethod.Post, new { @class = "form-horizontal" , enctype = "multipart/form-data" }))
+                {
+                    if (!string.IsNullOrWhiteSpace(ViewBag.Success) && Model.CarId == 0)
+                    {
+                    <script type="text/javascript">
+                        $(function () {
+                            $("form :text").val("");
+                            $("form :password").val("");
+                            $("form :textarea").val("");
+                        })
+                    </script>        
+                    }
+
+                    if (!string.IsNullOrEmpty(ViewBag.Sucess))
+                    {
+                    <div class="alert alert-success">
+                        <button class="close" data-dismiss="alert"></button>
+                        @Html.Raw(ViewBag.Sucess)
+                    </div>
+
+                    }
+                    else
+                    {
+                        if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Count() > 0))
+                        {
+                    <div class="alert alert-error">
+                        <button class="close" data-dismiss="alert"></button>
+                        @Html.ValidationSummary(false)
+                    </div>
+                        }
+                    } 
+                    <div class="form-body">
+                        @Html.HiddenFor(m => m.CarId)
+                         <div class="form-group">
+                            <label class="control-label col-md-3">Photo</label>
+                            <div class="imagedisplay">
+                                <img src="@resizedimage" alt="Logo" />
+                            </div>
+                        </div>
+                             <div class="form-group">
+                            <label class="control-label col-md-3">Upload New Photo</label>
+                            <div class="col-md-4">
+                                <input type="file" id="PhotoImageFile" name="PhotoImageFile" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3"> Name :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.CarName, new { @class = "form-control", @maxlength = "200" , onkeypress="return validateAlphaNumericOnly(event);" })
+
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-md-3"> Brand Name :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.BrandName, new { @class = "form-control", @maxlength = "200" , onkeypress="return validateAlphaNumericOnly(event);" })
+
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-md-3">Model Name :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.ModelName, new { @class = "form-control", @maxlength = "200" , onkeypress="return validateAlphaNumericOnly(event);" })
+
+                            </div>
+                        </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-3">Type :</label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(c => c.Type, new SelectList((Enum.GetValues(typeof(CarType))
+                                .Cast<CarType>()
+                               .ToDictionary(k => (int)k, v => ((Enum)v).GetDescription())), "key", "value"), "Select Type", new { @class = "form-control" })
+
+                            </div>
+                        </div>
+                            <div class="form-group">
+                            <label class="control-label col-md-3">Rental Plan :</label>
+                            <div class="col-md-4">
+                                
+                                @if (Model.RentalPlans != null)
+                                {
+                                    foreach (var robj in Model.RentalPlans)
+                                    {
+                                       
+                                       @Html.HiddenFor(c=>c.RentalPlanIds, new{ Value = robj.RentalPlanId})
+                                       @Html.HiddenFor(c=>c.CarRentalPlanIds, new{ Value = Model.CarRentalPlans.Where(c=>c.CarId==Model.CarId && c.RentalPlanId == robj.RentalPlanId).Select(c=>c.CarRentalPlanId).FirstOrDefault()})
+                                      
+                                      <label  style="float: left; margin-bottom: 10px; width: 40%;"> @robj.RentalPlanName </label>
+                                      @Html.TextBoxFor(c => c.Prices, new { @class = "form-control mceEditor", onkeypress="return validateDecimalOnly(event);", @maxlength = "1000",  Value = Model.CarRentalPlans.Where(c=>c.CarId==Model.CarId && c.RentalPlanId == robj.RentalPlanId).Select(c=>c.Price).FirstOrDefault(), Style="float: left; margin-bottom: 10px; width: 60%;" });
+                                       
+                                    }
+                                }
+                                
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Description :</label>
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(m => m.Summary, new { @class = "form-control mceEditor", @maxlength = "1000"  })
+
+                            </div>
+                        </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-3">Why hire :</label>
+                            <div class="col-md-4">
+                                @Html.TextAreaFor(m => m.WhyHire, new { @class = "form-control mceEditor", @maxlength = "1000"  })
+
+                            </div>
+                        </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-3">Active</label>
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(m => m.IsActive)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions fluid">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button type="submit" class="btn green">
+                                 Save
+                            </button>
+
+                        </div>
+                    </div>
+                }
+
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END VALIDATION STATES-->
+    </div>
+</div>
+ <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.watermark.min.js")"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        HighlightMenu('libusiness', 'libusinesssub', 'licaradd');
+    });
+
+</script>
